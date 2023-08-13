@@ -1,0 +1,64 @@
+.container-destaque{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+}
+.container-destaque::-webkit-scrollbar {
+    display: none;
+}
+.container-destaque .carte-destaque {
+    
+    background: #fff;
+    width: 300px;
+    margin: 5rem;
+    position: relative;
+    border: .1rem solid rgba(0, 0, 0, .2);
+    border-radius: .5rem;
+    box-shadow: #000;
+    margin: 5px;
+    margin-top: 70px;
+    max-width: 300px;
+    min-height: 200px;
+    min-width: 300px;   
+
+    
+}
+
+.container-destaque .carte-destaque .image {
+    height: auto;
+    width: 100%;
+    padding: 1.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.container-destaque .carte-destaque .image img {
+    height: 100%;
+    width: 100%;
+    border-radius: .5rem;
+    object-fit: cover;
+}
+
+.carte-destaque .content .stars {
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.carte-destaque .content .stars i {
+    font-size: 1.7rem;
+    color: #ed2f59;
+
+}
+
+
+
+.carte-destaque h3 {
+    color: #555;
+    font: 800 1.6rem/1.1 'nunito', sans-serif;
+    padding-left: 1.5rem;
+}

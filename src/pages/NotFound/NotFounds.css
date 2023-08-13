@@ -1,0 +1,33 @@
+.founds{
+    margin-top: 150px;
+}
+.no-founds {
+    position:absolute;
+    right: 4rem;
+    bottom: 4rem;
+    z-index:10 ;
+    color: white;
+    padding: 1.5rem;
+    margin: 1rem;
+    font-size: 1.2rem;
+    
+    color: #fff;
+    background-color: var(--congolinaria);
+    border: 0;
+    border-radius:2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:background-color 200ms;
+    cursor: pointer;
+}
+.no-founds:hover {
+    background: #eee;
+    color: var(--light-color);
+   
+    cursor: pointer;
+}
+h1{
+    
+    text-align: center;
+}

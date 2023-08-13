@@ -1,0 +1,116 @@
+.section-cardapio{
+    position: fixed;
+    top: 7.7rem;left: 0; right: 0;;
+    background: #fff;
+    padding: 1rem 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    
+}
+.section-cardapio .logo img{
+    width: 5rem;
+}
+
+.section-cardapio .nav-menu a{
+    text-decoration: none;
+    font-size: 1.7rem;
+    padding: .5rem 1.5rem;
+    border-radius: .5rem;
+    color: var(--light-color);
+}
+.section-cardapio .nav-menu a.active,
+.section-cardapio .nav-menu a:hover{
+    color: #fff;
+    background-color: var(--congolinaria);
+}
+.section-cardapio .nav-menu.active{
+    clip-path: polygon(0 0,100% 0, 100% 100%, 0 100%);
+}
+.section-cardapio .nav-menu.select{
+    background: #5c8599;
+   
+   color: #f5f8fa;
+   cursor: pointer;
+}
+.section-cardapio .icons i,
+.section-cardapio .icons a {
+    cursor: pointer;
+    margin-left: .5rem;
+    line-height: 4.5rem;
+    width: 4.5rem;
+    text-align: center;
+    font-size: 1.7rem;
+    color: var(--dark);
+    border-radius: 50%;
+    background: #eee;
+}
+
+.section-cardapio .icons i:hover,
+.section-cardapio .icons a:hover{
+    color:#fff;
+    background: var(--congolinaria);
+    transform:rotate(360deg) ;
+}
+.section-cardapio .icons #menu-bars{
+    display: none;
+}
+
+#search-form{
+    position: fixed;
+    top: -110%; left: 0; height: 100%; width: 100%;
+    z-index: 1004;
+    background: rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    padding:0 1rem;
+}
+
+#search-form #search-box::placeholder{
+    color:#eee;
+}
+#search-form #search-box::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+}
+#search-form label{
+    color: #fff;
+    cursor:pointer;
+    font-size: 3rem;
+} 
+#search-form label:hover{
+    color: var(--congolinaria);
+}
+#search-form.active{
+    top: 0;
+}
+#imagem-caroussel.active{
+    top:0;
+}
+#search-form #close{
+    position: absolute;
+    color:#fff;
+    cursor: pointer;
+    top:2rem; right:3rem;
+    font-size: 5rem;
+}
+#search-form #search-box{
+    width: 50rem;
+    border-bottom: .1rem solid #fff;
+    padding:1rem 0;
+    color: #fff;
+    font-size: 3rem;
+    text-transform: none;
+    background: none;
+}
+
+@media(max-width:600px){
+    .section-cardapio .nav-menu{
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+    }
+}

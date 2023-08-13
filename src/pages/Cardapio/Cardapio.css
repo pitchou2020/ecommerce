@@ -1,0 +1,224 @@
+section.cardapio .box-container .box {
+    display : flex;
+    padding: 2rem;
+    flex-direction: column;
+    
+    border-bottom: .1rem solid rgba(0,0,0,.2);
+    position: relative;
+
+}
+section.cardapio .box-container .box p{
+    font-size: 1.5rem;
+    line-height: 1.8;  
+    color: var(--light-color);
+    }
+    section.cardapio .box-container .box span{
+        color: var(--congolinaria);
+        margin-left: 1rem;
+        font-size: 2.5rem;
+    }
+section.rodizio .box-container .box{
+    display: none;
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    border: 1rem solid rgba(0,0,0,.2);
+    position: relative;
+}
+section.rodizio .box-container .box span{
+    color: var(--congolinaria);
+    margin-left: 1rem;
+    font-size: 2.5rem;
+}
+section.rodizio .box-container .box.active{
+    display: block;
+}
+
+section.rodizio .box-container .box p{
+    font-size: 1.5rem;
+    line-height: 1.8;  
+    color: var(--light-color);
+    }
+
+#content{
+  	width: 100%;
+	padding: 8rem; 
+	font-family: var(--poppins);
+	max-height: calc(100vh - 56px);
+	overflow-y: auto;
+}
+.head-admin{
+  display: flex;
+  align-items: center;
+	gap: 50rem;
+	margin-bottom: 24px;
+   flex-direction: wrap;
+}
+.head-admin .btn-item{
+    display: flex;
+}
+.head-admin .btn-item span{
+    padding: 1rem;
+border: 1px solid  var(--congolinaria);
+border-radius: .5rem;
+}
+
+#content  .table-data {
+	display: flex;
+	flex-wrap: wrap;
+	grid-gap: 24px;
+	margin-top: 24px;
+	width: 100%;
+	color: var(--dark);
+}
+#content  .table-data > div {
+	border-radius: 20px;
+	background: var(--light);
+	padding: 24px;
+	overflow-x: auto;
+}
+#content  .table-data .head {
+	display: flex;
+	align-items: center;
+	grid-gap: 16px;
+	margin-bottom: 24px;
+}
+#content  .table-data .head h3 {
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: 600;
+}
+#content  .table-data .head .bx, .fa-solid {
+	cursor: pointer;
+}
+
+#content  .table-data .order {
+	flex-grow: 1;
+	flex-basis: 500px;
+}
+#content  .table-data .order table {
+	width: 100%;
+	border-collapse: collapse;
+}
+#content  .table-data .order table th {
+	padding-bottom: 12px;
+	font-size: 13px;
+	text-align: left;
+	border-bottom: 1px solid var(--grey);
+}
+#content  .table-data .order table td {
+	position: relative;
+	padding: 16px 0;
+}
+#content  .table-data .order table tr td:first-child {
+	display: flex;
+	align-items: center;
+	grid-gap: 12px;
+	padding-left: 6px;
+}
+#content  .table-data .order table td img {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+#content  .table-data .order table tbody tr:hover {
+	background: var(--grey);
+}
+#content  .table-data .order table tr td .status {
+	font-size: 10px;
+	padding: 6px 16px;
+	color: var(--light);
+	border-radius: 20px;
+	font-weight: 700;
+}
+#content  .table-data .order table tr td .status.completed {
+	background: var(--vermelha);
+}
+#content  .table-data .order table tr td .status.process {
+	background: var(--yellow);
+}
+#content  .table-data .order table tr td .status.pending {
+	background: var(--orange);
+}
+
+
+#content  .table-data .todo {
+	flex-grow: 1;
+	flex-basis: 300px;
+}
+#content  .table-data .todo .todo-list {
+	width: 100%;
+}
+#content  .table-data .todo .todo-list li {
+	width: 100%;
+	margin-bottom: 16px;
+	background: var(--grey);
+	border-radius: 10px;
+	padding: 14px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+#content  .table-data .todo .todo-list li .bx, .fa-solid {
+	cursor: pointer;
+}
+#content  .table-data .todo .todo-list li.completed {
+	border-left: 10px solid var(--vermelha);
+}
+#content  .table-data .todo .todo-list li.not-completed {
+	border-left: 10px solid var(--orange);
+}
+#content  .table-data .todo .todo-list li:last-child {
+	margin-bottom: 0;
+}
+
+/* swuitch mode */
+ .switch{
+	position: absolute;
+	
+	transform: translate(-50%,-50%);
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+ }
+ .switch .toggle{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50px;
+	height: 25px;
+	background: #444;
+	border-radius: 30px;
+	transition: 0.3;
+
+ }
+ .switch .toggle .toggle-button{
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	width: 25px;
+	height: 25px;
+	background: #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: 0.3;
+ }
+ .switch .toggle.active{
+	background:var(--congolinaria);
+ }
+ .switch .toggle.active .toggle-button{
+	left: 25px;
+ }
+ .switch .text{
+	position: absolute;
+	left: 50px;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 10px;
+ }
+
+
+

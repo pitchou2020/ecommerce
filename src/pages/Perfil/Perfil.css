@@ -1,0 +1,162 @@
+.images-capa {
+    position: relative;
+    
+
+}
+
+.edit-capa{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 10px;
+    border: #ed2f59 solid 1px;
+    border-radius: 10px;
+    color: #ed2f59;
+   
+}
+.container-profile{
+    display: flex;
+    flex-direction: column;
+   
+
+}
+.foto-profile  {
+    display: flex;
+    flex-direction: column;
+    left: 150px;
+    top: 250px;
+    display: flex;
+    position: absolute;
+}
+.foto-profile img{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    border: #f2f2f2 solid 10px;
+}
+.foto-profile i{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    color: #ed2f59;
+    font-size: 3rem;
+   
+   
+    margin: auto;
+}
+.foto-profile span{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.nav-profile{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 150px;
+    align-items: center;
+    justify-content: center;
+}
+.nav-profile a {
+    text-decoration: none;
+    color:#555;
+}
+
+
+
+
+.container-login{
+    background-color: rgba(0, 0, 0, .8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.recette-salvos{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ContentForm{
+position: absolute;
+
+}
+.form-login{
+    width: 350px;
+    height: 480;
+   
+    background: white;
+    border-radius: 5px;
+    
+   
+   
+}
+.form-login input {
+    display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: #f2f2f2;
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.interface-form {
+    width: 350px;
+    height: 480px;
+    flex-shrink: 0;
+    display: flex;
+    background: #ffffff;  
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top:-240px;
+    margin-left: -175px;
+    
+
+    
+}
+.logo img{
+    padding: 10px;
+    margin : 10px;
+}
+
+form input {
+    display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: #f2f2f2;
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+form .btn {
+   display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: red;
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 16px;
+    cursor: pointer;
+    color: #ffffff;
+}
+.txtFim{
+    text-align: center;
+}
+ .txtFim span{
+    text-decoration: none;
+    color: red;
+}
+ 

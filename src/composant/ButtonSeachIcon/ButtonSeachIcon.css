@@ -1,0 +1,25 @@
+.mobile-seach-icon{
+    display: none;
+  }
+  @media screen and (max-width: 600px) {
+    .mobile-seach-icon{
+      display: flex;
+      
+        align-items: center;
+        justify-content: center;
+        width: 55px;
+        height: 45px;
+        border-radius: 2rem;
+        margin-top: 5px;
+        background: #ed2f59;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        right: 25px;
+        top: 12px;
+        padding: 10px;
+      
+        z-index: 1;
+    
+    }
+}
