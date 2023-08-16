@@ -71,7 +71,9 @@ return(
      <h1 className="heading">Nossos Produtos</h1>
     <div className="box-container" data-carossel="carossel">
                     {(!isEmpty(productsUnicos) && productsUnicos.map(item =>
-                        <Link to={
+                     
+                        <div className="box" key={item.id_produto} /*onClick={selectCarousel}*/>
+                               <Link to={
                             `/singleProduct/${item.nome.trim().replace(/\s+/g, '-')}`
                         }
                         state={{
@@ -82,7 +84,6 @@ return(
                             id_produto: item.id_produto
 
                         }}>
-                        <div className="box" key={item.id_produto} /*onClick={selectCarousel}*/>
                             <a href="#" className='heart'>
                                 <i class="fa-solid fa-heart"></i>
                             </a>
@@ -98,15 +99,16 @@ return(
                                 <i className="fas fa-star-half-alt"></i>
                             </div>
                             <h3>{item.nome}</h3>
-
+                            </Link>
                             <span>R$ {item.price}</span>
                           
                             <button 
+
                             onClick = {async ()=> {
                                 const form ={
-                                    user_id:12,
+                                    user_id:localStorage.getItem('idUser'),
                                     product_id:item.id_produto,
-                                    qty:1,
+                                    quantity:1,
                                     price:item.price,
                                     
                                 };
@@ -117,7 +119,7 @@ return(
                                }} className={`${item.picked ? "btn": "btn"}`}>
                                 {item.picked==="1" ? "ver carrinho" :"Adicionar ao carrinho" }</button>
                         </div>
-                        </Link>
+                        
                     ))}
                     <div id="imagem-caroussel">
                         <div className="box">

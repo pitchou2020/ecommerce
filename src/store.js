@@ -8,7 +8,8 @@ import produtosReducer from "./pages/Loja/produtosReducer";
 import cartReducer from "./redux/cartReducer";
 import carrinhoReducer from "./redux/carrinhoReducer"
 import notes from "./pages/Notes/notes";
-import productReducer from "./redux/productReducer"
+import productReducer from "./redux/productReducer";
+import loginReducer  from "./redux/loginReducer";
 const store = configureStore({
   reducer: {
     articleReducer,
@@ -21,6 +22,7 @@ const store = configureStore({
     cartReducer,
     carrinhoReducer,
     productReducer,
+    loginReducer,
     devTools:true
   }
 })

@@ -122,65 +122,7 @@ const params = useParams();
     navigate('./admin/', { replace: true })
     toggleModalRegister()
   }
-  const addTodo = async e => {
-    e.preventDefault();
-    const newUsuario = [...usuario]
-    const newUser = {};
-    //newUser.nome = stateInputNome;
-    newUser.email = stateInputEmail;
-    newUser.senha = stateInputSenha;
-    newUsuario.push(newUser);
-    setUsuario(newUsuario);
-   
-
-    await fetch('https://refugiadonacozinha.com.br/loginUser.php', {
-      method: 'POST',
-      Headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newUser)
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        if (responseJson.erro) {
-          setStatusLogin({
-            codigo: 400,
-            type: "error",
-            mensagem: responseJson.mensagem
-          })
-        }
-        else {
-
-         
-          setStatusLogin({
-            codigo: 200,
-            type: "success",
-            mensagem: responseJson.mensagem
-          })
-          
-         
-          setIsLogin(true)
-          localStorage.setItem('isLoggedIn', true)
-          localStorage.setItem('idUser',responseJson.id_usuario)
-          localStorage.setItem('nivel',responseJson.nivel)
-          setisLoggedIn(true)
-          if(responseJson.nivel=='administrador'){
-            goListarRecette()
-          }
-          else{
-            
-            goRecette()
-          }
-          
-        }
-
-      }).catch(() => {
-        setStatusLogin({
-          codigo: 400,
-          type: "error",
-          mensagem: "usuario não cadastrado, tente mais tarde! "
-        })
-      });
-  }
+ 
 
   const getComments = async (id_recettes) => {
     await fetch('http://localhost/RestoAfrica/src/views/single_recette_coment.php?id=' + id_recettes)
@@ -251,14 +193,9 @@ const params = useParams();
     setShowModal(false);
     setShowModalLogin(false)
     setShowModalPesquisa(false);
-    console.log(showModalPesquisa)
+  
   };
-  const [isLoggedIn, setisLoggedIn] = useState(null);
-  const logIn = () => { setisLoggedIn(true); };
-  const logOut = () => {
-    localStorage.setItem('isLoggedIn', false);
-    setisLoggedIn(false);
-  };
+
 
   const responseFacebook = (response) => {
 
@@ -456,7 +393,7 @@ const pathLogin= window.location.pathname==="/login"
           isLogin={isLogin} statusLogin={statusLogin}
           valorEmail={valorEmail}
           valorSenha={valorSenha}
-          funcAddTodo={addTodo} foto={picture} func={toggleModalRegister} modal={showModalLogin} funcRegister={goRegister} />
+          foto={picture} func={toggleModalRegister} modal={showModalLogin} funcRegister={goRegister} />
           </ThemeContextProvider>} />
        <Route path='/register/' element={<RegisterUser />} />
        <Route path="/addProducts" element={<AddProduct/>}/>

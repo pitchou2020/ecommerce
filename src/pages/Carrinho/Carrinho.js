@@ -41,35 +41,8 @@ export default function Carrinho() {
   useEffect(() => {
 
   }, []);
-console.log(carrinhoUser)
- let a =1;
-  const plus = document.querySelector(".quantity-up")
-    const minus = document.querySelector(".minus")
-    //const num = document.querySelector(".num")
-    let inputs= document.querySelectorAll(".quantity input")
-    let num = document.querySelector(".quantity input")
-    
-  const addNum =(e)=>{
-    const put = e.currentTarget   
-    
-   a++
-     ///a=(a<10)?"0"+a:a;
-    const  input = put.parentElement.children[0]
-     put.parentElement.children[0].value = a
-      console.log(input);
-  }
 
-  const sobNum = (e)=>{
-    const put = e.currentTarget  
-    if(a>1){
-      a--;
-     // a=(a<10)?"0"+a:a;
-     const  input = put.parentElement.children[0]
-     put.parentElement.children[0].value = a
-      console.log(input);
-    }
-   
-  }
+
   return (
     <>
        <NavMenu />

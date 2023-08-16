@@ -79,6 +79,7 @@ export function addCart(data,action) {
   return function (dispatch, getState) {
     return api.post('/carrinho.php', data)
       .then(response => {
+        console.log(response)
       dispatch(addOneToCart(action))
       }).catch(() =>
         dispatch(addError()))

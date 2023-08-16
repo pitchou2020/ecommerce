@@ -112,13 +112,13 @@ const toggleModalLogin=()=>{
                 <a href="#" className='logo'> <img src={logo} alt="" /></a>
                 <nav className='nav-menu'>
                     <a href="/" className='active'>Início</a>
-                    <a href="/loja">Loja</a>
-                    <a href="/menu-rodizio">Cardapio</a>
-                    <a href="/receitas">Receitas</a>
-                    <a href="/contato">Contato</a>
-                    <a href="/sobre">Sobre</a>
-                    <a href="/noticias">Notícias</a>
-                    <a href="/#order">Orçamento/festa/Eventos </a> 
+                    <a href="/resto-app/loja">Loja</a>
+                    <a href="/resto-app/menu-rodizio">Cardapio</a>
+                    <a href="/resto-app/receitas">Receitas</a>
+                    <a href="/resto-app/contato">Contato</a>
+                    <a href="/resto-app/sobre">Sobre</a>
+                    <a href="/resto-app/noticias">Notícias</a>
+                    <a href="/resto-app/#order">Orçamento/festa/Eventos </a> 
                 </nav>
                 <FormSearch/>
                 <div className="icons">

@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState } from "react"
-import { updateItemFromSelect, deleteFromCart, addCart,getCarrinho} from "./../redux/cartReducer"
-import { deleteCart } from "../actions/carrinhoAction"
+import { updateItemFromSelect, deleteFromCart, addCart,getCarrinho,deleteCart} from "./../redux/cartReducer"
 
 import { useNavigate } from 'react-router-dom'
 import spinner from "../assets/spinner.svg"

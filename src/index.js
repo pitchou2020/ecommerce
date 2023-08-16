@@ -10,8 +10,10 @@ import ThemeContextProvider from "./Context/ThemeContext";
 import { getCarrinho } from './redux/cartReducer';
 import { getProductsLists } from './pages/Loja/products';
 
+
 store.dispatch(getCarrinho())
 store.dispatch(getProductsLists())
+
 
 ReactDOM.render(
   <BrowserRouter basename= {process.env.PUBLIC_URL}>

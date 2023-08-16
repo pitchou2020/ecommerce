@@ -46,7 +46,7 @@ const addTodo = async e => {
     console.log(newUser);
     
 
-    await fetch('https://refugiadonacozinha.com.br/addUser.php', {
+    await fetch('http://localhost/RestoAfrica/src/views/addUser.php', {
         method: 'POST',
         Headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser)
