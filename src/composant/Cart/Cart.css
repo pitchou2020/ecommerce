@@ -1,0 +1,138 @@
+.carossel{
+    position:fixed;
+    top: 0; left: 0; height: 100%; width: 100%;
+    z-index: 1004;
+    background: rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    padding:0 1rem;
+}
+.box-carossel{
+    position: relative;
+    width: 60rem;
+    height: auto;
+    background: white;  
+    height: 500px;  
+    overflow: auto;
+ 
+}
+.box-carossel ul{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    
+}
+button .img-cart{
+    position: relative;
+}
+button .num {
+	position: absolute;
+	top:30px;
+	right: 140px;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	border: 1px solid var(--light);
+	background: var(--red);
+	color: var(--light);
+	
+	font-size: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.box-carossel ul li{
+    justify-content: baseline;
+    align-items: center;
+    display: flex;
+    flex-direction: wrap;
+    
+}
+.box-carossel .btn-close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+   background: red;
+   color: white;
+   width: 10px;
+   height: 10px;
+   top: .2rem;
+   right: .2rem;
+}
+.box-carossel table {
+	width: 100%;
+    margin: 4rem 0;
+	border-collapse: collapse;
+}
+.box-carossel table th {
+	padding-bottom: 12px;
+	font-size: 13px;
+	text-align: left;
+	border-bottom: 1px solid var(--grey);
+}
+.box-carossel table td {
+	padding: 30px 15px;
+    border-bottom: 1px solid var(--grey);
+}
+
+.box-carossel table tr td:first-child {
+	display: flex;
+	align-items: center;
+	grid-gap: 12px;
+	padding-left: 6px;
+}
+.box-carossel table td img {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.box-carossel table tbody tr:hover {
+	background: var(--grey);
+}
+.box-carossel .btn-carrinho{
+    display: flex;
+    flex: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.box-carossel .btn-carrinho button{
+    height: 36px;
+	padding: 0 16px;
+	border-radius: 5px;
+	background: var(--dark);
+	color: var(--light);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: 10px;
+	font-weight: 500;
+    margin-bottom: 5rem;
+}
+.box-carossel .btn-carrinho button:hover{
+    background: var(--congolinaria);
+	color: var(--light); 
+}
+td .wrapper{
+    height: 120px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+td .wrapper span{
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}
+td .wrapper span .num{
+font-size: 20px;
+border-right: 2px solid rgba(0,0,0,0.2);
+border-left: 2px solid rgba(0,0,0,0.2);
+}

@@ -1,0 +1,55 @@
+
+.container-sobre{
+    position: absolute;
+    height:auto;
+    text-align: initial;
+    text-align: justify;
+    font-size:2.4rem ;
+    line-height: 1.5;
+    padding: 50;
+    margin: auto;
+    width: 700px;
+    margin-top: 80px;
+   left: 50%;
+   margin-left:-350px;
+   flex-direction: column;
+   z-index: -1;
+   flex-shrink: 0;
+   
+    
+}
+.carte-sobre {
+    width: 95%;
+    margin: 5rem;
+    
+   
+    margin: 5px;
+    }
+.corpo p{
+    margin-top: 10px;
+}
+.corpo h1{
+    color: #555;
+    text-align: center;
+   
+}
+
+@media screen and (max-width: 600px) {
+    .container-sobre{
+        width: 90%;
+        
+        margin-left: -45%;
+        z-index: -1;
+        margin-bottom: 100px;
+
+
+    }
+    .carte-sobre{
+        width: 100%;
+        
+    }
+    .animate-right{
+        display: none;
+        width: 0px;
+    }
+}

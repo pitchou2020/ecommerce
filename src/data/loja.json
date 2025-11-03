@@ -1,0 +1,32 @@
+ {
+  "products": [
+    {
+      "id": 1,
+      "titre": "geleia de gengibre ",
+      "description": "geleia feita a base de gengibre e abacaxi",
+      "imagem": "/loja/geleia-gengibre.jpg",
+      "price": "R$ 26"
+    },
+    {
+      "id": 2,
+      "titre": "geleia de hibisco",
+      "description": "geleia feita a base de flor de hibisco e manga",
+      "imagem": "/loja/geleia-hibisco.jpg",
+      "price": "R$ 26"
+    },
+    {
+      "id": 3,
+      "titre": "geleia de tamarindo",
+      "description": "geleia feita a base de tamarindo e manga",
+      "imagem": "/loja/geleia-tamarindo.jpg",
+      "price": "R$ 26"
+    },
+    {
+      "id": 4,
+      "titre": "PILI PILI",
+      "description": "Pimenta extra-forte",
+      "imagem": "/loja/pimenta-extraforte.jpg",
+      "price": "R$ 8"
+    }
+  ]
+}

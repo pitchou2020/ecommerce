@@ -1,0 +1,92 @@
+.contenair-categorie {
+    position: fixed;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    background: #fff;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    justify-content: center;
+    background: var(--light);
+    top:7.7rem;
+    right: 0;
+    left: 0; 
+    z-index: 1004;
+}
+
+.nav-categorie {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;   
+}
+
+.btn-left-cat {
+    position: absolute;
+    left: 30rem;
+    top: 90px;
+    z-index:1005;
+}
+.item-categorie .active {
+    background: #5c8599;
+   color: #f5f8fa;
+   cursor: pointer;
+}
+
+.btn-right-cat {
+    position: absolute;
+    right: 2%;
+    top: 90px;
+    z-index: 10014;
+}
+.item-categorie {
+    flex: none;
+    padding: 5px;
+
+}
+
+.item-categorie a {
+    text-decoration: none;
+    background: var(--grey);
+    color: var(--dark);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: var(--lato);
+}
+.nav-categorie::-webkit-scrollbar {
+    display: none;
+}
+
+.contenair-categorie .navigation-button{
+    position: absolute;
+    width: 3.8rem;
+    height: 3.8rem;
+    border-radius: 50%;
+    background-color: var(--dark);
+    border: .2rem solid #d4d4d4;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.contenair-categorie  .navigation-button img{
+    width: 1.5rem;
+}
+.contenair-categorie  .prev-button{
+    left: 10rem;
+}
+.contenair-categorie .navigation-button:hover{
+    background-color: var(--congolinaria);
+}
+.contenair-categorie .next-button{
+    right: 10rem;
+}

@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+#page-unidades{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+aside{
+    position: fixed;
+    height: 100vh;
+    width: clamp(24rem, 25vw, 44rem);
+    background:  rgb(243, 244, 245); 
+    padding: clamp(3rem, 5vw, 8rem);
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+aside h2 {
+    margin-top: 6.4rem;
+    font: 800 clamp(2rem, 5vw, 3.6rem)/1.1 'nunito',sans-serif;
+}
+
+aside p {
+    margin-top: 2.4rem;
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+}
+aside header {
+    display: block;
+}
+aside footer p {
+    margin-top: .8rem;
+}
+.Containerrecette{
+    width: 80%;
+    
+    display: flex;
+    flex-direction: row;
+    margin-left: 300px;
+    margin-top: 20px;
+}
+
+.sug-recettes{
+    margin-top: 70px;
+}
+.sug-recettes a {
+    text-decoration: none;
+}
+.sug-recettes h2{
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+    font-size: 22px;
+    color: #ed2f59;
+
+
+}
+.contenair-categorie{
+    max-width: 100%;
+    margin: auto;
+    align-items: center;
+   
+   
+}
+.nav-categorie{
+    position: relative;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;   
+}
+.btn-left{
+    position: absolute;
+    left: 25%;
+    top: 90px;
+}
+.btn-right{
+    position: absolute;
+    right: 10%;
+    top: 90px;
+}
+.nav-categorie::-webkit-scrollbar{
+    display: none;
+}
+.item-cat{
+    flex: none;
+    padding: 10px;
+
+    
+}
+.item-cat a {
+    text-decoration: none;
+    background-color: #999;
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    
+
+}
+
+button.create-unidade-congolinaria {
+    position:absolute;
+    right: 4rem;
+    bottom: 4rem;
+    z-index:10 ;
+    color: white;
+
+    width: 6.4rem;
+    height: 6.4rem;
+    background: #ed2f59 ;
+    border: 0;
+    border-radius:2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:background-color 200ms;
+    cursor: pointer;
+}
+button.create-unidade-congolinaria:hover {
+    background: #17d6eb ;
+    cursor: pointer;
+}
+
+.container-recette{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:row;
+    flex-wrap:wrap;
+    margin-top: 60px;
+    margin: auto;
+   
+   
+    
+    
+}
+
+.container-single-recette{
+    width: 70%;
+    margin-left: 45rem; 
+    
+}
+
+.carte-single-recette p{
+    color: #555;
+   text-align: justify;
+}
+
+.carte-recette {
+    width: 300px;
+    margin: 5rem;
+    position:relative;
+    
+   
+    margin: 5px;
+    margin-top: 70px;}
+.carte-recette img{
+    width: 300px;
+    height:150px;
+    border-radius: 10px;
+    
+}
+.carte-recette h2{
+    color:#555;
+    font: 800 clamp(1.6rem, 5vw, 2rem)/1.1 'nunito',sans-serif;
+}
+.carte-recette, .carte-single-recette p {
+    text-align: justify;
+    color: #555;
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+}
+.carte-recette a{
+    text-decoration: none;
+
+}
+.img-vegan{
+    position: absolute;
+    top:10px;
+    left:10px;
+    border-radius: 5px;
+    padding:3px 5px;
+    color: white;
+    background-color: #22bb88;
+    font-size: 10px;
+}
+/*.carte {
+    width: 400px;
+    height: 300px;
+   
+    margin: 5px;
+   
+   
+    
+
+}
+
+.carte img{
+    width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    
+}
+.carte h2{
+    color:#555;
+    font: 800 clamp(1.6rem, 5vw, 2rem)/1.1 'nunito',sans-serif;
+}
+.carte p {
+    text-align: justify;
+    color: #555;
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+}
+  /* .restaurante{
+   
+    height: initial;
+    text-align: initial;
+    text-align: justify;
+    font-size:1.2rem ;
+    line-height: 1.5;
+    padding: 50;
+    margin: auto;
+    margin-top: 20px;
+    display:  flex;
+   
+    margin-left: 250rem;
+    
+}
+/*
+.restaurante a {
+    text-decoration: none;
+    color: #555;
+}
+.imagem-restaurante{
+    display:table-cell;
+    float: left;
+}
+.conteudo-restaurante {
+    display:table-cell;
+    float: left;
+    width: 500px;
+    margin-left: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.restaurante p{
+    margin-top: 10px;
+}
+.restaurante h1{
+    color: #555;
+    text-align: left;
+    font-size: 2rem;
+}
+
+*/
+
+#content-pesquisa{
+    width: 100%;
+   
+}
+.nav-pesquisa{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+
+}
+.nav-pesquisa i{
+  color: #342E37;
+}
+.btn {
+    background: transparent;
+    font-weight: 500;
+    color: #ed2f59;
+    margin: 5px;
+}
+
+@media screen and (max-width:600px) {
+    .container-recette{
+        width: 100%;
+        margin-left: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+        flex-wrap:wrap;
+    }
+    .sug-recettes{
+        display:none;
+    }
+    .carte-recette{
+     width: 150px;
+     height: auto;
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     justify-content: center;
+     margin-bottom:5px;
+     margin-top: 0px;
+ 
+    }
+    .carte-recette img{
+        margin-top: 0px;
+        width: 100%; 
+        height: 75px;       
+    }
+    .carte-recette p{
+        font-size: 1.2rem;
+        color: #000;
+        padding: 10px;
+        text-align: justify; 
+    }
+    .carte-recette h2{
+        text-align: center;
+        margin: 10px 0 0 0;
+        color: #555;
+        font-size: 12px;
+        
+      
+   
+    }
+    .carte-recette a{
+        text-decoration: none;
+
+    }
+    .img-vegan{
+        font-size: 6px;
+    }
+    button.create-unidade-congolinaria{
+        display: none;
+    }
+    
+    .animate-right{
+        display: none;
+        width: 0px;
+    }
+
+    .container-single-recette{
+        width: 95%;
+        margin-left: auto;
+        padding: 5rem;
+    }
+    .contenair-categorie{
+        max-width: 100vw;
+    }
+    .pesquisa{
+        background: #eee;
+        border-radius: 10px;
+        margin-left:30px;
+        
+    }
+    .pesquisa a{
+        text-decoration: none;
+        font-size: 16px;
+        color: #342E37;
+
+    }
+}
