@@ -49,6 +49,6 @@ Depois de editar algo no código, o ciclo é sempre este:
 ## git status    
 ( Adicionar alterações)       
 ## git add .            
-## git commit -m "descrição breve"
+## git commit -m "atualizacao dia 04/11/2025 as 06-06"
 (Enviar pro GitHub)
 ## git push origin main  

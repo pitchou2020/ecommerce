@@ -1,31 +1,17 @@
-import React from "react";
+import React from 'react';
 
-const categorias = [
-  "Todas",
-  "Pratos principais",
-  "Sobremesas",
-  "Bebidas",
-  "Entradas",
-  "Salgados",
-  "Molhos",
-];
-
-export default function CategoriasReceitas({ categoriaSelecionada, onSelect }) {
+export default function CategoriasReceitas({ categorias, onFiltrar }) {
   return (
-    <aside className="bg-white p-4 rounded-lg shadow-md h-full">
-      <h2 className="text-lg font-semibold mb-4 text-yellow-700">Categorias</h2>
+    <aside className="w-full md:w-1/4 lg:w-1/5 bg-yellow-800 text-white p-4 overflow-y-auto max-h-screen hidden md:block">
+      <h3 className="text-lg font-bold mb-3">🍲 Categorias</h3>
       <ul className="space-y-2">
-        {categorias.map((categoria) => (
+        {categorias.map((cat, idx) => (
           <li
-            key={categoria}
-            onClick={() => onSelect && onSelect(categoria)}
-            className={`cursor-pointer p-2 border rounded hover:bg-yellow-100 transition duration-200 ${
-              categoriaSelecionada === categoria
-                ? "bg-yellow-200 font-semibold border-yellow-400"
-                : "border-gray-200"
-            }`}
+            key={idx}
+            onClick={() => onFiltrar(cat)}
+            className="cursor-pointer hover:text-yellow-300 transition"
           >
-            {categoria}
+            {cat}
           </li>
         ))}
       </ul>

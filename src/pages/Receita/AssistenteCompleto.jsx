@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
@@ -12,7 +11,6 @@ export default function AssistenteCompleto() {
   const [idReceitaAtual, setIdReceitaAtual] = useState(null);
   const [mostrarPlaylist, setMostrarPlaylist] = useState(false);
 
-  // Lê o parâmetro ?id= da URL
   const location = useLocation();
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -20,7 +18,6 @@ export default function AssistenteCompleto() {
     if (idParam) setIdReceitaAtual(idParam);
   }, [location.search]);
 
-  // Carrega todas as receitas
   useEffect(() => {
     axios.get('https://congolinaria.com.br/api/receitas_autoriais.php')
       .then(res => {
@@ -37,7 +34,6 @@ export default function AssistenteCompleto() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen w-full bg-neutral-900 text-white">
-
       {/* CATEGORIAS */}
       <div className="w-full lg:w-1/5 p-4 border-b lg:border-b-0 lg:border-r border-yellow-400 bg-neutral-900 order-1">
         <h2 className="text-lg font-bold mb-4 text-yellow-400">🍽 Categorias</h2>
@@ -93,7 +89,7 @@ export default function AssistenteCompleto() {
       >
         <h2 className="text-lg font-bold text-yellow-700 mb-4">📋 Receitas</h2>
         <PlaylistReceitas
-          receitasFiltradas={receitasFiltradas}
+          receitas={receitasFiltradas}
           idAtual={idReceitaAtual}
           onSelecionar={(id) => {
             setIdReceitaAtual(id);

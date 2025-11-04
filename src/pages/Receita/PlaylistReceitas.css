@@ -1,0 +1,24 @@
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 200px;
+  height: 24px;
+}
+
+.marquee-text {
+  white-space: nowrap;
+  display: inline-block;
+  position: absolute;
+  animation: marquee var(--velocidade, 6s) linear infinite;
+  font-weight: bold;
+  color: #78350f;
+}
+
+.marquee-container:hover .marquee-text {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
