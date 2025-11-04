@@ -12,6 +12,7 @@ import AdminCardapio from "./pages/Cardapio/PainelCardapioAdmin";
 import Cadastrar from "./pages/Cadastrar";
 import Receita from "./pages/Receita/IAReceitas";
 import RecettesCategory from "./pages/RecettesCategory/RecettesCategory";
+import PainelReceitasAutorais from "./pages/Receita/PainelReceitasAutorais";
 
 import NotFound from "./pages/NotFound/NotFound";
 import Admin from "./pages/Admin/admin";
@@ -36,6 +37,11 @@ import NavMenu from "./composant/navMenu/NavMenu";
 
 import AssistenteCompleto from './pages/Receita/AssistenteCompleto';
 import AvaliarReceita from './pages/Receita/AvaliarReceita';
+
+import AppEstoque from './pages/Estoque/AppEstoque';
+import Estoque from './pages/Estoque/Estoque';
+import HistoricoMovimentacao from './pages/Estoque/HistoricoMovimentacao';
+import Relatorios from './pages/Estoque/Relatorios';
 
 function App() {
   const dispatch = useDispatch();
@@ -99,9 +105,14 @@ function App() {
             />
           }
         />
-
+        <Route path="/admin/estoque" element={<AppEstoque />}>
+          <Route index element={<Estoque />} />
+          <Route path="historico" element={<HistoricoMovimentacao />} />
+          <Route path="relatorio" element={<Relatorios />} />
+        </Route>
         {/* Cardápio público */}
         <Route path="/redirect_cardapio" element={<Cardapio />} />
+        <Route path="/painel-receitas-autorais" element={<PainelReceitasAutorais/>}/>
 
         {/* Painel do cardápio (admin) */}
         <Route

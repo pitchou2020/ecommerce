@@ -12,7 +12,9 @@ export default function Login({ onClose }) {
   const navigate = useNavigate();
   const { LoginRequest } = useContext(ThemeContext);
 
-  const { error, mensagem, loading } = useSelector(state => state.loginReducer);
+  
+  const { error, mensagem, loading } = useSelector(state => state.login || {});
+
 
   const handleLogin = async (e) => {
     e.preventDefault();

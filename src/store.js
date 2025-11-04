@@ -11,7 +11,7 @@ import carrinhoReducer from "./redux/carrinhoReducer";
 import notes from "./pages/Notes/notes";
 import productReducer from "./redux/productReducer";
 import loginReducer from "./redux/loginReducer";
-//import userReducer from "./redux/userReducer";
+import userReducer from "./redux/userReducer";
 //import blogReducer from "./redux/blogReducer";
 //import sliderReducer from "./redux/sliderReducer";
 
@@ -27,8 +27,8 @@ const store = configureStore({
     cartItems: cartReducer,
     carrinho: carrinhoReducer,
     product: productReducer,
-    login: loginReducer
-    //users: userReducer,
+    login: loginReducer,
+    users: userReducer
     //blog: blogReducer,
    // slider: sliderReducer
   },

@@ -9,7 +9,7 @@ import { ThemeContext } from './../../Context/ThemeContext';
 function Admin() {
   const [dataRestaurantes, setDataRestaurantes] = useState([]);
   const [dataUsuarios, setDataUsuarios] = useState([]);
-  const UrlBase = 'http://localhost/RestoAfrica/src/views/';
+  const UrlBase = 'https://congolinaria.com.br/';
   const { isLoggedIn } = useContext(ThemeContext);
   const navigate = useNavigate();
 

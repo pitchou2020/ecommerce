@@ -87,12 +87,12 @@ className="lg:hidden bg-white shadow-md px-6 py-4 flex flex-col space-y-3 text-g
 )}
 </AnimatePresence>
 
-<main className="flex-grow">
+{/*<main className="flex-grow">
 <div className="text-center py-20">
 <h1 className="text-3xl font-bold text-yellow-600">Bem-vindo ao Congolinaria</h1>
 <p className="text-gray-600 mt-2">Descobrindo Sabores do Congo</p>
 </div>
-</main>
+</main>*/}
 </>
   );
 }
