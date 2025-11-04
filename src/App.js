@@ -1,26 +1,158 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState, useRef, useContext, useEffect } from "react";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+import ThemeContextProvider, { ThemeContext } from "./Context/ThemeContext";
+
+// ---- Páginas confirmadas ----
 import Home from "./pages/Home/HomePageTailwind";
-import CardapioCongolinaria from "./pages/Cardapio/CardapioCongolinaria";
+import Cardapio from "./pages/Cardapio/CardapioCongolinaria";
 import AdminCardapio from "./pages/Cardapio/PainelCardapioAdmin";
-import Carrinho from "./pages/Carrinho/Carrinho";
+import Cadastrar from "./pages/Cadastrar";
+import Receita from "./pages/Receita/IAReceitas";
+import RecettesCategory from "./pages/RecettesCategory/RecettesCategory";
+
+import NotFound from "./pages/NotFound/NotFound";
+import Admin from "./pages/Admin/admin";
 import Login from "./pages/Login/Login";
+import RegisterUser from "./pages/RegisterUser";
+
+import Protected from "./Protected";
+
+// ---- Redux actions ----
+import { getNotesFromAPI } from "./pages/Notes/notes";
+import { getRecettesFromAPI } from "./pages/Recettes/recettesReducer";
+
+
+
+import CardapioCongolinaria from "./pages/Cardapio/CardapioCongolinaria";
+
+import Carrinho from "./pages/Carrinho/Carrinho";
+
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Footer from "./composant/Footer/Footer";
 import NavMenu from "./composant/navMenu/NavMenu";
-import Receita from "./pages/Receita/IAReceitas";
+
 import AssistenteCompleto from './pages/Receita/AssistenteCompleto';
 import AvaliarReceita from './pages/Receita/AvaliarReceita';
 
-
 function App() {
+  const dispatch = useDispatch();
+  const notes = useSelector((state) => state.notes);
+  const recettes = useSelector((state) => state.recettesReducer);
+  const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
+
+  // ---- Inicialização ----
+  useEffect(() => {
+    if (!notes.list) dispatch(getNotesFromAPI());
+  }, [dispatch, notes]);
+
+  // ---- Controle de modais e estados simples ----
+  const [showModal, setShowModal] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [showModalLogin, setShowModalLogin] = useState(false);
+  const [showModalRegister, setShowModalRegister] = useState(false);
+  const [dataComment, setDataComment] = useState([]);
+
+  const windowWidth = useRef(window.innerWidth);
+
+  // ---- Funções auxiliares ----
+  const toggleModal = () => setShowModal(!showModal);
+  const toggleModalLogin = () => setShowModalLogin(!showModalLogin);
+  const toggleModalRegister = () => setShowModalRegister(!showModalRegister);
+
+  const getComments = async (id_recettes) => {
+    try {
+      const response = await fetch(
+        `http://localhost/RestoAfrica/src/views/single_recette_coment.php?id=${id_recettes}`
+      );
+      const data = await response.json();
+      setDataComment(data);
+    } catch (error) {
+      console.error("Erro ao buscar comentários:", error);
+    }
+  };
+
+  // ---- Rotas ----
   return (
+
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
     <NavMenu />
 
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
+    <ThemeContextProvider>
+      
+      <Routes>
+        {/* Página inicial */}
+        <Route
+          path="/"
+          element={
+            <Home
+              modal={showModalLogin}
+              func2={toggleModalLogin}
+              win={windowWidth.current}
+              sidebar={showSidebar}
+              toggleModal={toggleModal}
+              showModal={showModal}
+            />
+          }
+        />
+
+        {/* Cardápio público */}
+        <Route path="/redirect_cardapio" element={<Cardapio />} />
+
+        {/* Painel do cardápio (admin) */}
+        <Route
+          path="/admin/cardapio"
+          element={
+            <Protected>
+              <AdminCardapio />
+            </Protected>
+          }
+        />
+
+     
+
+        {/* Cadastro e login */}
+        <Route path="/register" element={<RegisterUser />} />
+        <Route
+          path="/login"
+          element={
+            <ThemeContextProvider>
+              <Login
+                isLogin={false}
+                statusLogin={{}}
+                valorEmail={() => {}}
+                valorSenha={() => {}}
+                funcRegister={() => navigate("/register")}
+              />
+            </ThemeContextProvider>
+          }
+        />
+
+        {/* Páginas auxiliares */}
+        <Route path="/cadastro" element={<Cadastrar sidebar={showSidebar} />} />
+        <Route path="/receita/:slug" element={<Receita />} />
+        <Route path="/recettesCategory/:slug" element={<RecettesCategory />} />
+
+        {/* Painel Admin geral */}
+        <Route
+          path="/admin"
+          element={
+            <Protected>
+              <Admin sidebar={showSidebar} toggleModal={toggleModal} showModal={showModal} />
+            </Protected>
+          }
+        />
+
+       
+
+        {/* Página 404 */}
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="/" element={<Home />} />
           <Route path="/redirect_cardapio/" element={<CardapioCongolinaria />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/login" element={<Login />} />
@@ -30,8 +162,10 @@ function App() {
 
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/cardapio" element={<AdminCardapio />} />
-        </Routes>
-      </main>
+      </Routes>
+      
+    </ThemeContextProvider>
+    </main>
 
       <Footer />
     </div>

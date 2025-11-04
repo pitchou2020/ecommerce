@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../config/wooCommerceApp';
+import  api  from '../../config/configApi';
 import AdminDashboard from './AdminDashboard';
 
 function Dashbord({ numRecettes, usuarios, func }) {

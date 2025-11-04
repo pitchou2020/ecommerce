@@ -10,22 +10,40 @@ export default function AssistenteCompleto() {
   const [categorias, setCategorias] = useState([]);
   const [idReceitaAtual, setIdReceitaAtual] = useState(null);
   const [mostrarPlaylist, setMostrarPlaylist] = useState(false);
+  const [carregando, setCarregando] = useState(true);
 
   const location = useLocation();
+
+  // 🔹 Captura o parâmetro da URL (se houver)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const idParam = params.get('id');
     if (idParam) setIdReceitaAtual(idParam);
   }, [location.search]);
 
+  // 🔹 Carrega todas as receitas
   useEffect(() => {
-    axios.get('https://congolinaria.com.br/api/receitas_autoriais.php')
+    axios
+      .get('https://congolinaria.com.br/api/receitas_autoriais.php')
       .then(res => {
-        setReceitas(res.data);
-        const categoriasUnicas = [...new Set(res.data.map(r => r.categoria).filter(Boolean))];
+        const lista = Array.isArray(res.data) ? res.data : [];
+        setReceitas(lista);
+
+        // 🔹 Extrai categorias únicas
+        const categoriasUnicas = [
+          ...new Set(lista.map(r => r.categoria).filter(Boolean)),
+        ];
         setCategorias(categoriasUnicas);
+
+        // 🔹 Se não houver receita na URL, mostra uma aleatória
+        if (!idReceitaAtual && lista.length > 0) {
+          const randomIndex = Math.floor(Math.random() * lista.length);
+          const aleatoria = lista[randomIndex];
+          setIdReceitaAtual(aleatoria.id);
+        }
       })
-      .catch(err => console.error("Erro ao carregar receitas:", err));
+      .catch(err => console.error('Erro ao carregar receitas:', err))
+      .finally(() => setCarregando(false));
   }, []);
 
   const receitasFiltradas = categoriaSelecionada
@@ -41,7 +59,9 @@ export default function AssistenteCompleto() {
           <li
             onClick={() => setCategoriaSelecionada('')}
             className={`cursor-pointer p-2 rounded hover:bg-yellow-500 hover:text-black ${
-              categoriaSelecionada === '' ? 'bg-yellow-400 text-black font-bold' : ''
+              categoriaSelecionada === ''
+                ? 'bg-yellow-400 text-black font-bold'
+                : ''
             }`}
           >
             Todas
@@ -51,7 +71,9 @@ export default function AssistenteCompleto() {
               key={idx}
               onClick={() => setCategoriaSelecionada(cat)}
               className={`cursor-pointer p-2 rounded hover:bg-yellow-500 hover:text-black ${
-                categoriaSelecionada === cat ? 'bg-yellow-400 text-black font-bold' : ''
+                categoriaSelecionada === cat
+                  ? 'bg-yellow-400 text-black font-bold'
+                  : ''
               }`}
             >
               {cat}
@@ -62,11 +84,17 @@ export default function AssistenteCompleto() {
 
       {/* ASSISTENTE CENTRAL */}
       <div className="w-full lg:flex-1 p-4 flex justify-center items-start bg-gray-100 order-2">
-        {idReceitaAtual ? (
+        {carregando ? (
+          <div className="text-center text-yellow-700 mt-10 bg-yellow-200 p-6 rounded-lg shadow-md">
+            Carregando receita aleatória...
+          </div>
+        ) : idReceitaAtual ? (
           <AssistenteReceita id={idReceitaAtual} />
         ) : (
           <div className="text-center text-yellow-700 mt-10">
-            <h2 className="text-2xl font-bold">👩🏽‍🍳 Selecione uma receita para iniciar</h2>
+            <h2 className="text-2xl font-bold">
+              👩🏽‍🍳 Nenhuma receita disponível no momento
+            </h2>
           </div>
         )}
       </div>
@@ -91,7 +119,7 @@ export default function AssistenteCompleto() {
         <PlaylistReceitas
           receitas={receitasFiltradas}
           idAtual={idReceitaAtual}
-          onSelecionar={(id) => {
+          onSelecionar={id => {
             setIdReceitaAtual(id);
             setMostrarPlaylist(false);
             window.scrollTo({ top: 0, behavior: 'smooth' });
