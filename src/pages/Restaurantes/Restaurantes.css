@@ -1,0 +1,191 @@
+#page-unidades{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+aside{
+    position: fixed;
+    height: 100vh;
+    width: clamp(24rem, 25vw, 44rem);
+    background:  rgb(243, 244, 245); 
+    padding: clamp(3rem, 5vw, 8rem);
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    align-items: center;
+    z-index:-1;
+    margin-top: -100px;
+  
+}
+aside h2 {
+    margin-top: 6.4rem;
+    font: 800 clamp(2rem, 5vw, 3.6rem)/1.1 'nunito',sans-serif;
+}
+
+aside p {
+    margin-top: 2.4rem;
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+}
+aside header {
+    display: block;
+}
+aside footer p {
+    margin-top: .8rem;
+}
+
+#mapid {
+    margin-left: 50rem;
+}
+button.create-unidade-congolinaria {
+    position:absolute;
+    right: 4rem;
+    bottom: 4rem;
+    z-index:10 ;
+    color: white;
+
+    width: 6.4rem;
+    height: 6.4rem;
+    background: #ed2f59 ;
+    border: 0;
+    border-radius:2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:background-color 200ms;
+    cursor: pointer;
+}
+button.create-unidade-congolinaria:hover {
+    background: #17d6eb ;
+    cursor: pointer;
+}
+
+.container-restaurante{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    margin-left: 45rem;
+    
+   
+    
+}
+
+
+.carte-restaurante {
+    max-width: 300px;
+    margin: 5rem;
+   
+    
+   
+    margin: 5px;}
+.carte-restaurante img{
+    width: 300px;
+    height:150px;
+    border-radius: 10px;
+}
+
+.carte-restaurante h2{
+    color:#555;
+    font: 800 clamp(1.6rem, 5vw, 2rem)/1.1 'nunito',sans-serif;
+}
+.carte-restaurante p {
+    text-align: justify;
+    color: #555;
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+}
+.carte-restaurante a{
+text-decoration: none;
+}
+/*.carte-restaurante {
+    width: 400px;
+    height: 300px;
+   
+    margin: 5px;
+}
+
+.carte-restaurante img{
+    width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    
+}
+.carte-restaurante h2{
+    color:#555;
+    font: 800 clamp(1.6rem, 5vw, 2rem)/1.1 'nunito',sans-serif;
+}
+.carte-restaurante p {
+    text-align: justify;
+    color: #555;
+    font: 400 1.6rem/1.5 'nunito', sans-serif;
+}
+  /* .restaurante{
+   
+    height: initial;
+    text-align: initial;
+    text-align: justify;
+    font-size:1.2rem ;
+    line-height: 1.5;
+    padding: 50;
+    margin: auto;
+    margin-top: 20px;
+    display:  flex;
+   
+    margin-left: 250rem;
+    
+}
+/*
+.restaurante a {
+    text-decoration: none;
+    color: #555;
+}
+.imagem-restaurante{
+    display:table-cell;
+    float: left;
+}
+.conteudo-restaurante {
+    display:table-cell;
+    float: left;
+    width: 500px;
+    margin-left: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.restaurante p{
+    margin-top: 10px;
+}
+.restaurante h1{
+    color: #555;
+    text-align: left;
+    font-size: 2rem;
+}
+
+*/
+.hide-text{
+    color:red;
+    width: 150px;
+    background-color: #000;
+   
+}
+
+@media screen and (max-width: 600px) {
+
+    .container-restaurante{
+        margin-left: auto;
+        height: auto;
+        margin-bottom: 60px;
+      
+        
+       
+        
+    }
+  
+    
+    button.create-unidade-congolinaria{
+        display: none;
+    }
+    
+    .animate-right{
+        display: none;
+        width: 0px;
+    }
+}

@@ -1,0 +1,42 @@
+.FormPesquisa{
+display: flex;
+margin-left:0;
+}
+
+.InputPesquisa{
+    width: 100%;
+    max-width:250px;
+    height:36px;
+    background: #f5f8fa;
+    flex-shrink:0;
+    border: 1px solid var(--congolinaria);
+    border-radius: 15px 0px 0px 15px;
+    color: #5c8599;
+    font-size:16px;
+    text-align: center;
+}
+.InputPesquisa:valid{
+    border: 1px solid var(--congolinaria);
+}
+.PesquisaButton{
+    display:flex;      
+    align-items: center;
+    justify-content: center;
+    width:55px;
+    height:36px;
+    margin-top: 20px;
+    border-radius: 0px 15px 15px 0px;
+    background-color:var(--congolinaria);
+    z-index:1;
+}
+
+.PesquisaButton i{
+    font-size:20px;
+    color : white;
+}
+
+@media(max-width:600px){
+    .FormPesquisa{ display:none;      
+    
+    }
+}

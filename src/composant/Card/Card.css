@@ -1,0 +1,49 @@
+.container-recette .carte-recette {
+    background: #fff;
+    width: 300px;
+    margin: 5rem;
+    position: relative;
+    border: .1rem solid rgba(0, 0, 0, .2);
+    border-radius: .5rem;
+    box-shadow: #000;
+
+    margin: 5px;
+    margin-top: 70px;
+    max-width: 300px;
+ min-height: 200px;
+    min-width: 300px;
+}
+
+.container-recette .carte-recette .image {
+    height: auto;
+    width: 100%;
+    padding: 1.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.container-recette .carte-recette .image img {
+    height: 100%;
+    width: 100%;
+    border-radius: .5rem;
+    object-fit: cover;
+}
+
+.carte-recette .content .stars {
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.carte-recette .content .stars i {
+    font-size: 1.7rem;
+    color: #ed2f59;
+
+}
+
+
+
+.carte-recette h3 {
+    color: #555;
+    font: 800 1.6rem/1.1 'nunito', sans-serif;
+    padding-left: 1.5rem;
+}

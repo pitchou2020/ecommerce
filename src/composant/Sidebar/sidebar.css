@@ -1,0 +1,134 @@
+.sidebar {
+    position: fixed;
+    height: 100%;;
+    padding: 32px 24px;
+    background: #fff;
+    margin-top: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 280px;
+    transition: .3s ease;
+	overflow-x: hidden;
+	scrollbar-width: none;
+   
+   
+}
+.sidebar .menu-sidebar ul  {
+	width: 100%;
+	margin-top: 48px;
+	margin-left: -15px;
+}
+
+.sidebar .menu-sidebar ul li {
+	height: 48px;
+	background: transparent;
+	margin-left: 0;
+	border-radius: 48px 0 0 48px;
+	padding: 4px;
+}
+
+.sidebar .menu-sidebar ul li a.active {
+	background: var(--grey);
+	position: relative;
+}
+.sidebar .hide .menu-sidebar ul li a{
+    display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: calc(80px - (8px * 2));
+	transition: width .3s ease;
+	font-size: 10px;
+}
+.sidebar footer button {
+    width: 75px;
+    height: 48px;
+    color: #ed2f59;
+    border: none;
+    background: white;
+    border-radius: 1.6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background-color 0.2s;
+    margin-bottom: 60px;;
+}
+
+.sidebar footer button:hover {
+    background: #96feff;
+}
+
+.with-sidebar {
+    padding-left: 110px;
+
+}
+
+.logo {
+    top: -10px;
+
+}
+
+.menu-sidebar {
+    display: flex;
+    width: 100%;
+  align-items: left;
+    flex-direction: column;
+}
+
+.menu a i {
+    padding-right: 10px;
+}
+.menu a .bx .fa-solid{
+    min-width: calc(60px  - ((4px + 6px) * 2));
+	display: flex;
+	justify-content: center;
+}
+
+
+.sidebar .menu-sidebar ul li a {    
+    width: 100%;
+	height: 100%;
+	background: var(--light);
+	display: flex;
+	align-items: center;
+	border-radius: 48px;
+	font-size: 16px;
+	color: var(--dark);
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-decoration: none;
+   
+    
+    /*padding: 12px; 
+    text-decoration: none; 
+    font-size: 1.7rem;*/
+} /* Remove underline from links */
+
+
+
+
+.sidebar .menu-sidebar ul li  a.active {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+/* Links ao passar o mouse */
+.sidebar .menu-sidebar ul li a:hover:not(.active) {
+
+    background-color: var(--congolinaria);
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+
+    .menu-sidebar span {
+        display: none;
+    }
+
+}

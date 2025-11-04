@@ -1,0 +1,88 @@
+.sidebar-profile {
+    position: fixed;
+    /*height: 100vh;*/
+    height: auto;
+    padding: 32px 24px;
+    background: #ed2f59;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    right: 80px;
+    width:17.5vw;
+    top: 0px;
+    border-radius: 5px;
+    z-index: 1004;
+}
+.profile{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+.profile img{
+    width: 100px;
+    border-radius: 50%;
+}
+.profile span{
+    margin-top: 15px;
+    color: white;
+}
+
+
+.with-sidebar {
+    padding-left: 110px;
+
+}
+
+.logo {
+    top: -10px;
+
+}
+
+.menu-sidebar-profile {
+    display: flex;
+    width: 100%;
+  align-items: left;
+    flex-direction: column;
+}
+
+.menu-profile i {
+    padding-right: 10px;
+}
+
+.menu-profile a {  
+    
+    color: white; /* Black text color */
+   
+    display: flex; /* Make the links appear below each other */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+    font-size: 2rem;
+    gap: 15px;
+    margin-bottom: 15px;
+} /* Remove underline from links */
+      
+
+.menu-profile a.active {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+/* Links ao passar o mouse */
+.menu-profile a:hover:not(.active) {
+
+    background-color: #96feff;
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+
+    .menu-sidebar-profile span {
+        display: none;
+    }
+
+}
