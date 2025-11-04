@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
+import ReceitasPage from "./ReceitasPage";
 
 
 export default function IAReceitas() {
@@ -256,6 +257,7 @@ export default function IAReceitas() {
           ))}
         </div>
       </div>
+      <ReceitasPage />
     </>
   );
 }

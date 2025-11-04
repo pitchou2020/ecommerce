@@ -16,6 +16,7 @@ Gerenciar as rotas
 
 
 
+
 ####  token hostgastor
 NDBASX1JVWMIQYRIGO4JEZSTYCD8V4QC
 
@@ -41,3 +42,13 @@ NDBASX1JVWMIQYRIGO4JEZSTYCD8V4QC
   # npm install redux-thunk
 
   # npm install uuid 
+
+Depois de editar algo no código, o ciclo é sempre este:
+
+(Ver o que mudou)
+## git status    
+( Adicionar alterações)       
+## git add .            
+## git commit -m "descrição breve"
+(Enviar pro GitHub)
+## git push origin main  

@@ -9,6 +9,9 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Footer from "./composant/Footer/Footer";
 import NavMenu from "./composant/navMenu/NavMenu";
 import Receita from "./pages/Receita/IAReceitas";
+import AssistenteCompleto from './pages/Receita/AssistenteCompleto';
+import AvaliarReceita from './pages/Receita/AvaliarReceita';
+
 
 function App() {
   return (
@@ -22,6 +25,8 @@ function App() {
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/login" element={<Login />} />
           <Route path="/receitas" element={<Receita />} />
+<Route path="/assistente-completo" element={<AssistenteCompleto />} />
+<Route path="/avaliar-receita" element={<AvaliarReceita />} />
 
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/cardapio" element={<AdminCardapio />} />
