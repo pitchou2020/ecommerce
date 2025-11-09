@@ -1,5 +1,5 @@
 import React,{useContext,useEffect} from 'react'
-import {ThemeContext} from "./../../Context/ThemeContext"
+import {ThemeContext} from "../../Context/ThemeContext"
 
 function Index() {
 	const{resize} = useContext(ThemeContext);

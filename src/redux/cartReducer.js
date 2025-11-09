@@ -56,6 +56,46 @@ export function getCarrinho() {
     }
   };
 }
+export function salvarCarrinhoNoLocalStorage(getState) {
+  const state = getState();
+  localStorage.setItem("carrinhoCOP30", JSON.stringify(state.cart.cartItems));
+}
+
+export function adicionarAoCarrinhoRedux(produto) {
+  return async function (dispatch, getState) {
+   dispatch(
+  adicionarItem({
+    ...produto,
+    preco: Number(produto.preco), // força número
+    quantity: 1,
+  })
+);
+
+    salvarCarrinhoNoLocalStorage(getState);
+  };
+}
+
+export function editarQuantidadeRedux(data) {
+  return async function (dispatch, getState) {
+    dispatch(atualizarQuantidadeItem(data));
+    salvarCarrinhoNoLocalStorage(getState);
+  };
+}
+
+export function deletarItemRedux(id_produto) {
+  return async function (dispatch, getState) {
+    dispatch(deleteFromCart(id_produto));
+    salvarCarrinhoNoLocalStorage(getState);
+  };
+}
+
+export function limparCarrinhoRedux() {
+  return async function (dispatch, getState) {
+    dispatch(limparCarrinho());
+    salvarCarrinhoNoLocalStorage(getState);
+  };
+}
+
 
 export function adicionarAoCarrinho(id_produto) {
   return async function (dispatch, getState) {

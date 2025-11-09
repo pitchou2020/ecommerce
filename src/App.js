@@ -2,6 +2,8 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './i18n';
+
 
 import ThemeContextProvider, { ThemeContext } from "./Context/ThemeContext";
 
@@ -13,6 +15,15 @@ import Cadastrar from "./pages/Cadastrar";
 import Receita from "./pages/Receita/IAReceitas";
 import RecettesCategory from "./pages/RecettesCategory/RecettesCategory";
 import PainelReceitasAutorais from "./pages/Receita/PainelReceitasAutorais";
+import PainelPratosPopulares from "./pages/Admin/PainelPratosPopulares";
+
+import CardapioCOP30 from "./pages/Cardapio/CardapioCOP30";
+import PainelPedidosCOP30 from "./pages/Cardapio/PainelPedidosCOP30";
+import PainelGarcomCOP30 from "./pages/Cardapio/PainelGarcomCOP30";
+import PainelGarcomPedidos from "./pages/Cardapio/PainelGarcomPedidos";
+import Checkout from "./pages/Cardapio/Checkout";
+
+
 
 import NotFound from "./pages/NotFound/NotFound";
 import Admin from "./pages/Admin/admin";
@@ -42,6 +53,8 @@ import AppEstoque from './pages/Estoque/AppEstoque';
 import Estoque from './pages/Estoque/Estoque';
 import HistoricoMovimentacao from './pages/Estoque/HistoricoMovimentacao';
 import Relatorios from './pages/Estoque/Relatorios';
+import DetalhePratoCOP30 from './pages/Cardapio/DetalhePratoCOP30';
+import { Import } from "lucide-react";
 
 function App() {
   const dispatch = useDispatch();
@@ -110,6 +123,7 @@ function App() {
           <Route path="historico" element={<HistoricoMovimentacao />} />
           <Route path="relatorio" element={<Relatorios />} />
         </Route>
+        <Route path="/admin/pratos-populares" element={<PainelPratosPopulares />} />
         {/* Cardápio público */}
         <Route path="/redirect_cardapio" element={<Cardapio />} />
         <Route path="/painel-receitas-autorais" element={<PainelReceitasAutorais/>}/>
@@ -173,6 +187,15 @@ function App() {
 
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/cardapio" element={<AdminCardapio />} />
+          <Route path="cardapio-congelados" element={<CardapioCOP30 />} />
+          <Route path="/prato/:id" element={<DetalhePratoCOP30 />} />
+          
+          <Route path="admin/painel-pedidos-cop30" element={<PainelPedidosCOP30 />} />
+          <Route path="admin/painel-garcom-cop30" element={<PainelGarcomCOP30 />} />
+          <Route path="admin/painel-garcom-pedidos" element={<PainelGarcomPedidos />} />
+          <Route path="checkout" element={<Checkout />} />
+          
+
       </Routes>
       
     </ThemeContextProvider>

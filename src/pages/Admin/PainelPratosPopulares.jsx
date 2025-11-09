@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SidebarAdmin from '../../composant/SidebarAdmin';
+
+import Sidebar from '../../composant/Sidebar/Sidebar';
 
 export default function PainelPratosPopulares() {
   const [pratos, setPratos] = useState([]);
@@ -89,7 +90,7 @@ export default function PainelPratosPopulares() {
 
   return (
     <div className="flex">
-      <SidebarAdmin />
+      <Sidebar />
       <div className="flex-1 max-w-4xl mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">Painel de Pratos Populares</h1>
 
@@ -134,7 +135,7 @@ export default function PainelPratosPopulares() {
             <div key={prato.id} className="border rounded p-4 shadow">
               {prato.imagem && (
                 <img
-                  src={prato.imagem}
+                  src={`https://congolinaria.com.br/${prato.imagem}`}
                   alt={prato.titulo}
                   className="w-full h-40 object-cover rounded mb-2"
                 />

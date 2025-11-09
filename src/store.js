@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import products from "./pages/Loja/products";
-import cart from "./pages/Loja/cart";
+//import cart from "./pages/Loja/cart";
 import articleReducer from './redux/articles/articleReducer';
 import recettesReducer from './pages/Recettes/recettesReducer';
 import CommentsReducer from "./composant/FormComment/CommentsReducer";
@@ -19,12 +19,12 @@ const store = configureStore({
   reducer: {
     articles: articleReducer,
     products,
-    cart,
+    cart: cartReducer,
     notes,
     recettes: recettesReducer,
     comments: CommentsReducer,
     produtos: produtosReducer,
-    cartItems: cartReducer,
+   
     carrinho: carrinhoReducer,
     product: productReducer,
     login: loginReducer,

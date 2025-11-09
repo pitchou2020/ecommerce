@@ -12,6 +12,11 @@ export const MenuData = [
     icon: <Utensils size={18} />
   },
   {
+    title: 'Pratos Populares',
+    url: '/admin/pratos-populares',
+    icon: <Utensils size={18} />
+  },
+  {
     title: 'Configurações',
     url: '/admin/configuracoes',
     icon: <Settings size={18} />
