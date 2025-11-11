@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Sidebar from '../../composant/Sidebar/Sidebar';
 
 export default function UploadJsonReceitas() {
   const [arquivos, setArquivos] = useState(null);
@@ -24,7 +25,9 @@ export default function UploadJsonReceitas() {
   };
 
   return (
-    <div className="p-4">
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1 max-w-4xl mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Importar Receitas JSON</h2>
 
       <input
@@ -52,6 +55,7 @@ export default function UploadJsonReceitas() {
           </ul>
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -46,6 +46,7 @@ import Carrinho from "./pages/Carrinho/Carrinho";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Footer from "./composant/Footer/Footer";
 import NavMenu from "./composant/navMenu/NavMenu";
+import SupportChat from "./composant/SupportChat";
 
 import AssistenteCompleto from './pages/Receita/AssistenteCompleto';
 import AvaliarReceita from './pages/Receita/AvaliarReceita';
@@ -56,6 +57,9 @@ import HistoricoMovimentacao from './pages/Estoque/HistoricoMovimentacao';
 import Relatorios from './pages/Estoque/Relatorios';
 import DetalhePratoCOP30 from './pages/Cardapio/DetalhePratoCOP30';
 import { Import } from "lucide-react";
+import PainelEventosAdmin from "./pages/Admin/PainelEventosAdmin";
+import ReceitasJson from "./pages/Receita/UploadJsonReceitas";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -127,7 +131,7 @@ function App() {
         <Route path="/admin/pratos-populares" element={<PainelPratosPopulares />} />
         {/* Cardápio público */}
         <Route path="/redirect_cardapio" element={<Cardapio />} />
-        <Route path="/painel-receitas-autorais" element={<PainelReceitasAutorais/>}/>
+        <Route path="/admin/painel-receitas-autorais" element={<PainelReceitasAutorais/>}/>
 
         {/* Painel do cardápio (admin) */}
         <Route
@@ -194,7 +198,8 @@ function App() {
           
           <Route path="admin/painel-pedidos-cop30" element={<PainelPedidosCOP30 />} />
           <Route path="admin/painel-garcom-cop30" element={<PainelGarcomCOP30 />} />
-          <Route path="admin/painel-garcom-pedidos" element={<PainelGarcomPedidos />} />
+          <Route path="admin/receitas-json" element={<ReceitasJson />} />
+          <Route path="admin/eventos" element={<PainelEventosAdmin />} />
           <Route path="checkout" element={<Checkout />} />
           
 
@@ -204,6 +209,7 @@ function App() {
     </main>
 
       <Footer />
+      <SupportChat />
     </div>
   );
 }

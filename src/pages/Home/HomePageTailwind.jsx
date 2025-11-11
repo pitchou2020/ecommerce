@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsLists } from "../../redux/blogReducer";
 import { Link } from "react-router-dom";
@@ -10,11 +10,14 @@ import Pitchou from "./../Admin/img/people.png";
 export default function HomePageTailwind() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.blogReducer || {});
+
   const [pratosPopulares, setPratosPopulares] = useState([]);
   const [heroImage, setHeroImage] = useState("");
   const [heroTitle, setHeroTitle] = useState("");
   const [heroButtonText, setHeroButtonText] = useState("");
   const [heroButtonLink, setHeroButtonLink] = useState("/redirect_cardapio");
+  const [eventos, setEventos] = useState([]);
+  const [mostrarEvento, setMostrarEvento] = useState(true);
 
   // === BLOG ===
   useEffect(() => {
@@ -24,9 +27,9 @@ export default function HomePageTailwind() {
 
   const postsUnicos =
     Array.isArray(posts.items) && posts.items.length > 0
-      ? [
-          ...new Set(posts.items.map((p) => p.titre_post)),
-        ].map((titre) => posts.items.find((p) => p.titre_post === titre))
+      ? [...new Set(posts.items.map((p) => p.titre_post))].map((titre) =>
+          posts.items.find((p) => p.titre_post === titre)
+        )
       : [];
 
   // === PRATOS POPULARES ===
@@ -50,7 +53,48 @@ export default function HomePageTailwind() {
       })
       .catch((e) => console.error("Erro ao carregar hero:", e));
   }, []);
-const [mostrarEvento, setMostrarEvento] = React.useState(true);
+
+  // === EVENTOS ===
+  useEffect(() => {
+    fetch("https://congolinaria.com.br/api/eventos_home.php")
+      .then((r) => r.json())
+      .then((data) => setEventos(data))
+      .catch((e) => console.error("Erro ao carregar eventos:", e));
+  }, []);
+
+  // === AUTOPLAY DO CARROSSEL ===
+  const scrollRef = useRef(null);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    const startAutoScroll = () => {
+      intervalRef.current = setInterval(() => {
+        if (
+          scrollContainer.scrollLeft + scrollContainer.clientWidth >=
+          scrollContainer.scrollWidth
+        ) {
+          scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          scrollContainer.scrollBy({ left: 400, behavior: "smooth" });
+        }
+      }, 6000);
+    };
+
+    const stopAutoScroll = () => clearInterval(intervalRef.current);
+
+    startAutoScroll();
+    scrollContainer.addEventListener("mouseenter", stopAutoScroll);
+    scrollContainer.addEventListener("mouseleave", startAutoScroll);
+
+    return () => {
+      stopAutoScroll();
+      scrollContainer.removeEventListener("mouseenter", stopAutoScroll);
+      scrollContainer.removeEventListener("mouseleave", startAutoScroll);
+    };
+  }, [eventos]);
 
   return (
     <>
@@ -83,53 +127,88 @@ const [mostrarEvento, setMostrarEvento] = React.useState(true);
         </motion.div>
       </section>
 
-      {/* ===== EVENTO EM FOCO (fechável) ===== */}
-{/** Hook local para controlar visibilidade */}
+      {/* ===== EVENTOS CARROSSEL (com fade-in e botão fechar) ===== */}
+      {mostrarEvento && eventos.length > 0 && (
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="relative py-20 bg-gradient-to-r from-orange-50 to-yellow-50 px-6 text-center shadow-inner"
+        >
+          {/* Botão fechar */}
+          <button
+            onClick={() => setMostrarEvento(false)}
+            className="absolute top-5 right-6 bg-orange-200 hover:bg-orange-300 text-orange-800 rounded-full px-3 py-1 text-xs font-semibold shadow transition"
+          >
+            ✕ Fechar
+          </button>
 
-  
+          {/* Título animado */}
+          <motion.h2
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl font-extrabold text-center text-orange-700 mb-10"
+          >
+            Próximos Eventos
+          </motion.h2>
 
-   {/* ===== EVENTO EM FOCO (fechável) ===== */}
-{mostrarEvento && (
-  <motion.section
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    transition={{ duration: 0.6 }}
-    className="relative py-14 px-6 bg-gradient-to-r from-yellow-50 to-yellow-100 text-center shadow-md"
-  >
-    {/* Botão fechar */}
-    <button
-      onClick={() => setMostrarEvento(false)}
-      className="absolute top-3 right-3 bg-orange-200 hover:bg-orange-300 text-orange-800 rounded-full px-3 py-1 text-xs font-semibold transition"
-    >
-      ✕ Fechar
-    </button>
-
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="max-w-3xl mx-auto"
-    >
-      <h2 className="text-3xl font-bold text-orange-700 mb-3">
-        📅 Evento <span className="underline">Congo em Foco</span> — 27 a 30 de Junho de 2025
-      </h2>
-      <p className="text-gray-700 mb-5">
-        Celebre a independência do Congo com cultura, debates, food shows e gastronomia AfroVeg autêntica!
-      </p>
-      <a
-        href="/evento-congo-em-foco"
-        className="inline-block bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-full font-semibold shadow"
-      >
-        Ver programação completa
-      </a>
-    </motion.div>
-  </motion.section>
-)}
-
-
-
+          {/* Carrossel centralizado */}
+          <div className="relative flex justify-center">
+            <div
+              ref={scrollRef}
+              className="max-w-6xl overflow-x-auto flex gap-6 pb-4 snap-x snap-mandatory scroll-smooth justify-center"
+            >
+              {eventos.map((ev, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 150 }}
+                  className="snap-center w-[90%] sm:w-[400px] bg-white rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden mx-auto"
+                >
+                  {ev.imagem && (
+                    <motion.img
+                      src={`https://congolinaria.com.br/${ev.imagem}`}
+                      alt={ev.titulo}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 1 }}
+                      className="w-full h-56 object-cover"
+                    />
+                  )}
+                  <div className="p-6">
+                    <motion.h3
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="text-lg font-bold text-orange-700 mb-1"
+                    >
+                      {ev.titulo}
+                    </motion.h3>
+                    <p className="text-sm text-gray-500 mb-2">
+                      {new Date(ev.data_inicio).toLocaleDateString("pt-BR")} –{" "}
+                      {new Date(ev.data_fim).toLocaleDateString("pt-BR")}
+                    </p>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      {ev.descricao}
+                    </p>
+                    {ev.link && (
+                      <motion.a
+                        href={ev.link}
+                        whileHover={{ scale: 1.05 }}
+                        className="inline-block bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-full text-sm font-semibold shadow transition"
+                      >
+                        Ver mais
+                      </motion.a>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+      )}
 
       {/* ===== PRATOS POPULARES ===== */}
       <section className="max-w-7xl mx-auto py-20 px-6">
@@ -183,15 +262,13 @@ const [mostrarEvento, setMostrarEvento] = React.useState(true);
               Av. Prof. Alfonso Bovero, 382 – Sumaré (SP)
             </p>
             <iframe
-  title="Mapa Zona Oeste"
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.232733744853!2d-46.68443048543104!3d-23.592711184666373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d21b30cd7f%3A0x5e6a0b23c18aa3b9!2sAv.%20Prof.%20Alfonso%20Bovero%2C%20382%20-%20Sumar%C3%A9%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2005426-000!5e0!3m2!1spt-BR!2sbr!4v1709575012345!5m2!1spt-BR!2sbr"
-  width="100%"
-  height="250"
-  allowFullScreen=""
-  loading="lazy"
-  referrerPolicy="no-referrer-when-downgrade"
-  className="rounded-lg"
-/>
+              title="Mapa Zona Oeste"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.232733744853!2d-46.68443048543104!3d-23.592711184666373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d21b30cd7f%3A0x5e6a0b23c18aa3b9!2sAv.%20Prof.%20Alfonso%20Bovero%2C%20382"
+              width="100%"
+              height="250"
+              loading="lazy"
+              className="rounded-lg"
+            />
             <a
               href="https://www.google.com/maps/place/Av.+Prof.+Alfonso+Bovero,+382"
               target="_blank"
@@ -210,16 +287,14 @@ const [mostrarEvento, setMostrarEvento] = React.useState(true);
             <p className="text-sm text-gray-600 mb-3">
               Rua Caquito, 251 – Penha (SP)
             </p>
-       <iframe
-  title="Mapa Zona Leste"
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.324113935658!2d-46.54020108543022!3d-23.58922098466702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5edda17e1d8f%3A0x2f697e1585f28238!2sR.%20Caquito%2C%20251%20-%20Penha%20de%20Fran%C3%A7a%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003631-010!5e0!3m2!1spt-BR!2sbr!4v1709575071234!5m2!1spt-BR!2sbr"
-  width="100%"
-  height="250"
-  allowFullScreen=""
-  loading="lazy"
-  referrerPolicy="no-referrer-when-downgrade"
-  className="rounded-lg"
-/>
+            <iframe
+              title="Mapa Zona Leste"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.324113935658!2d-46.54020108543022!3d-23.58922098466702"
+              width="100%"
+              height="250"
+              loading="lazy"
+              className="rounded-lg"
+            />
             <a
               href="https://www.google.com/maps/place/R.+Caquito,+251"
               target="_blank"
@@ -274,7 +349,9 @@ const [mostrarEvento, setMostrarEvento] = React.useState(true);
         <h3 className="text-2xl font-bold text-orange-700 mb-1">
           Chef Pitchou Luambo
         </h3>
-        <p className="text-sm text-gray-500 mb-4">Culinária AfroVeg Congolesa</p>
+        <p className="text-sm text-gray-500 mb-4">
+          Culinária AfroVeg Congolesa
+        </p>
         <p className="max-w-2xl mx-auto text-gray-700 italic leading-relaxed">
           “Congolinária é a possibilidade de mostrar para as pessoas a história
           que os brasileiros desconhecem. Falamos da cultura africana, da
@@ -285,7 +362,7 @@ const [mostrarEvento, setMostrarEvento] = React.useState(true);
 
       {/* ===== ORÇAMENTO ===== */}
       <Orcamento />
-     
+      <Footer />
     </>
   );
 }

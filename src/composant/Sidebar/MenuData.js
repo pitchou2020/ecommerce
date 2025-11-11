@@ -17,6 +17,22 @@ export const MenuData = [
     icon: <Utensils size={18} />
   },
   {
+    title: 'Eventos',
+    url: '/admin/eventos',
+    icon: <Utensils size={18} />
+  },
+  {
+    title: 'Receitas Json',
+    url: '/admin/receitas-json',
+    icon: <Utensils size={18} />
+  },
+  {
+    title: 'Recitas Autorais',
+    url: '/admin/painel-receitas-autorais',
+    icon: <Utensils size={18} />
+  },
+ 
+  {
     title: 'Configurações',
     url: '/admin/configuracoes',
     icon: <Settings size={18} />
