@@ -3,10 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { adicionarAoCarrinhoRedux } from "../../redux/cartReducer";
+import { FaTruck, FaShoppingBag, FaLeaf } from "react-icons/fa";
 
-export default function DetalhePratoCOP30({ atualizarCarrinhoGlobal }) {
+export default function DetalhePratoCOP30() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [prato, setPrato] = useState(null);
   const [relacionados, setRelacionados] = useState([]);
@@ -15,7 +17,7 @@ export default function DetalhePratoCOP30({ atualizarCarrinhoGlobal }) {
   const [quantidade, setQuantidade] = useState(1);
   const [mensagem, setMensagem] = useState("");
 
-  // 🔎 Carrega prato e relacionados
+  // 🔎 Carrega prato + relacionados
   useEffect(() => {
     axios
       .get("https://congolinaria.com.br/api/cardapio_cop30.php?idioma=pt")
@@ -33,13 +35,13 @@ export default function DetalhePratoCOP30({ atualizarCarrinhoGlobal }) {
       .catch(console.error);
   }, [id]);
 
+  // 🚚 Cálculo de frete via CEP
   const calcularFrete = async () => {
     const cepLimpo = cep.replace(/\D/g, "");
     if (cepLimpo.length !== 8) {
       alert("Digite um CEP válido.");
       return;
     }
-
     try {
       const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
       const data = await res.json();
@@ -49,42 +51,42 @@ export default function DetalhePratoCOP30({ atualizarCarrinhoGlobal }) {
         return;
       }
 
-      let valorFrete = 0;
-      if (data.localidade === "São Paulo") valorFrete = 8.9;
-      else if (data.uf === "SP") valorFrete = 14.9;
-      else valorFrete = 24.9;
+      let valor = 24.9;
+      if (data.localidade === "São Paulo") valor = 8.9;
+      else if (data.uf === "SP") valor = 14.9;
 
       setFrete({
         cidade: data.localidade,
         uf: data.uf,
-        valor: valorFrete.toFixed(2),
+        valor: valor.toFixed(2),
       });
-    } catch (e) {
+    } catch {
       alert("Erro ao calcular frete.");
     }
   };
 
-  const dispatch = useDispatch();
-
-const adicionarAoCarrinho = () => {
-  dispatch(adicionarAoCarrinhoRedux({
-    id_produto: prato.id,
-    nome: prato.nome,
-    preco: parseFloat(prato.preco),
-    imagem: prato.imagem,
-    quantity: quantidade,
-  }));
-
-  setMensagem("✅ Adicionado à sacola!");
-  setTimeout(() => setMensagem(""), 2000);
-};
+  // 🛍️ Adicionar ao carrinho Redux
+  const adicionarAoCarrinho = () => {
+    dispatch(
+      adicionarAoCarrinhoRedux({
+        id_produto: prato.id,
+        nome: prato.nome,
+        preco: parseFloat(prato.preco),
+        imagem: prato.imagem,
+        quantity: quantidade,
+      })
+    );
+    setMensagem("✅ Adicionado à sacola!");
+    setTimeout(() => setMensagem(""), 2000);
+  };
 
   if (!prato) {
     return <p className="text-center mt-10 text-gray-500">Carregando prato...</p>;
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-8">
+    <div className="max-w-6xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-8">
+      {/* Voltar */}
       <button
         onClick={() => navigate(-1)}
         className="text-sm text-green-700 hover:underline mb-6"
@@ -92,14 +94,13 @@ const adicionarAoCarrinho = () => {
         ← Voltar
       </button>
 
-      {/* Estrutura principal */}
       <div className="grid md:grid-cols-2 gap-8 items-start">
-        {/* Coluna esquerda — Detalhes */}
+        {/* Coluna Esquerda */}
         <div>
-          <h1 className="text-3xl font-bold text-green-800 mb-3">{prato.nome}</h1>
+          <h1 className="text-3xl font-bold text-green-800 mb-2">{prato.nome}</h1>
           <p className="text-gray-700 mb-4 leading-relaxed">{prato.descricao}</p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 text-sm mb-6">
+          <div className="grid grid-cols-2 gap-2 text-sm mb-6">
             {prato.peso && <p><strong>Peso:</strong> {prato.peso}</p>}
             {prato.calorias && <p><strong>Calorias:</strong> {prato.calorias} kcal</p>}
             {prato.tempo_preparo && <p><strong>Tempo:</strong> {prato.tempo_preparo}</p>}
@@ -109,8 +110,57 @@ const adicionarAoCarrinho = () => {
           {/* Ingredientes */}
           {prato.ingredientes && (
             <div className="mb-4">
-              <h2 className="font-semibold text-lg text-green-700">Ingredientes</h2>
+              <h2 className="font-semibold text-lg text-green-700">🌿 Ingredientes</h2>
               <p className="text-gray-700 whitespace-pre-line">{prato.ingredientes}</p>
+            </div>
+          )}
+
+          {/* Tabela Nutricional */}
+          {(prato.proteina || prato.carboidrato || prato.gordura) && (
+            <div className="my-6 border rounded-lg overflow-hidden">
+              <h2 className="bg-green-700 text-white text-center py-2 font-semibold">
+                Informações Nutricionais (por 100g)
+              </h2>
+              <table className="w-full text-sm text-gray-700">
+                <tbody>
+                  {prato.calorias && (
+                    <tr className="border-b">
+                      <td className="p-2 font-medium">Calorias</td>
+                      <td className="p-2 text-right">{prato.calorias} kcal</td>
+                    </tr>
+                  )}
+                  {prato.proteina && (
+                    <tr className="border-b">
+                      <td className="p-2 font-medium">Proteínas</td>
+                      <td className="p-2 text-right">{prato.proteina} g</td>
+                    </tr>
+                  )}
+                  {prato.carboidrato && (
+                    <tr className="border-b">
+                      <td className="p-2 font-medium">Carboidratos</td>
+                      <td className="p-2 text-right">{prato.carboidrato} g</td>
+                    </tr>
+                  )}
+                  {prato.gordura && (
+                    <tr className="border-b">
+                      <td className="p-2 font-medium">Gorduras totais</td>
+                      <td className="p-2 text-right">{prato.gordura} g</td>
+                    </tr>
+                  )}
+                  {prato.fibra && (
+                    <tr className="border-b">
+                      <td className="p-2 font-medium">Fibras alimentares</td>
+                      <td className="p-2 text-right">{prato.fibra} g</td>
+                    </tr>
+                  )}
+                  {prato.sodio && (
+                    <tr>
+                      <td className="p-2 font-medium">Sódio</td>
+                      <td className="p-2 text-right">{prato.sodio} mg</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           )}
 
@@ -129,7 +179,7 @@ const adicionarAoCarrinho = () => {
             R$ {parseFloat(prato.preco).toFixed(2)}
           </p>
 
-          {/* Botão e quantidade */}
+          {/* Quantidade e Botão */}
           <div className="flex items-center gap-3 mb-4">
             <div className="flex items-center">
               <button
@@ -155,9 +205,9 @@ const adicionarAoCarrinho = () => {
 
             <button
               onClick={adicionarAoCarrinho}
-              className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition"
+              className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition flex items-center gap-2"
             >
-              🛍️ Adicionar à Sacola
+              <FaShoppingBag /> Adicionar à Sacola
             </button>
           </div>
 
@@ -165,9 +215,11 @@ const adicionarAoCarrinho = () => {
             <p className="text-green-600 font-semibold mb-4">{mensagem}</p>
           )}
 
-          {/* 🚚 Calcular Frete abaixo do botão */}
+          {/* Calcular Frete */}
           <div className="mt-4 border-t pt-4">
-            <h2 className="font-semibold text-lg text-green-700 mb-2">Calcular Frete</h2>
+            <h2 className="font-semibold text-lg text-green-700 mb-2 flex items-center gap-2">
+              <FaTruck className="text-green-700" /> Calcular Frete
+            </h2>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -177,7 +229,8 @@ const adicionarAoCarrinho = () => {
                 value={cep}
                 onChange={(e) => {
                   let valor = e.target.value.replace(/\D/g, "");
-                  if (valor.length > 5) valor = valor.replace(/^(\d{5})(\d{0,3}).*/, "$1-$2");
+                  if (valor.length > 5)
+                    valor = valor.replace(/^(\d{5})(\d{0,3}).*/, "$1-$2");
                   setCep(valor);
                 }}
                 className="border p-2 rounded w-1/2 tracking-widest focus:border-green-600 outline-none"
@@ -189,17 +242,18 @@ const adicionarAoCarrinho = () => {
                 Calcular
               </button>
             </div>
-
             {frete && (
               <p className="mt-3 text-sm text-gray-700">
                 Frete para {frete.cidade}/{frete.uf}:{" "}
-                <span className="font-semibold text-green-700">R$ {frete.valor}</span>
+                <span className="font-semibold text-green-700">
+                  R$ {frete.valor}
+                </span>
               </p>
             )}
           </div>
         </div>
 
-        {/* Coluna direita — Imagem */}
+        {/* Coluna Direita (Imagem) */}
         <div className="flex justify-center items-start">
           <img
             src={`https://congolinaria.com.br/${prato.imagem}`}
@@ -209,11 +263,11 @@ const adicionarAoCarrinho = () => {
         </div>
       </div>
 
-      {/* 🌿 Produtos Relacionados */}
+      {/* Produtos Relacionados */}
       {relacionados.length > 0 && (
         <div className="mt-12 border-t pt-8">
-          <h2 className="text-2xl font-bold text-green-800 mb-6">
-            Produtos Relacionados
+          <h2 className="text-2xl font-bold text-green-800 mb-6 flex items-center gap-2">
+            <FaLeaf className="text-green-700" /> Produtos Relacionados
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {relacionados.map((p) => (
@@ -229,7 +283,9 @@ const adicionarAoCarrinho = () => {
                 />
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-800">{p.nome}</h3>
-                  <p className="text-sm text-gray-600 mb-2 line-clamp-2">{p.descricao}</p>
+                  <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                    {p.descricao}
+                  </p>
                   <p className="text-green-700 font-bold">
                     R$ {parseFloat(p.preco).toFixed(2)}
                   </p>

@@ -22,6 +22,7 @@ import PainelPedidosCOP30 from "./pages/Cardapio/PainelPedidosCOP30";
 import PainelGarcomCOP30 from "./pages/Cardapio/PainelGarcomCOP30";
 import PainelGarcomPedidos from "./pages/Cardapio/PainelGarcomPedidos";
 import Checkout from "./pages/Cardapio/Checkout";
+import Sacola from "./pages/Sacola/Sacola";
 
 
 
@@ -188,6 +189,7 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/cardapio" element={<AdminCardapio />} />
           <Route path="cardapio-congelados" element={<CardapioCOP30 />} />
+          <Route path="/sacola" element={<Sacola />} />
           <Route path="/prato/:id" element={<DetalhePratoCOP30 />} />
           
           <Route path="admin/painel-pedidos-cop30" element={<PainelPedidosCOP30 />} />
