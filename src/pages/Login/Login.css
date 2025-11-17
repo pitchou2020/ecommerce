@@ -1,0 +1,144 @@
+.container-login{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+}
+
+.content-login{
+    position:fixed;
+    top: 0; left: 0; height: 100%; width: 100%;
+    z-index: 1004;
+    background: rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    padding:0 1rem;
+    
+}
+
+.ContentForm{
+    position: relative;
+    width: 350px;
+    height: 520px;
+    height: auto;
+    background: white; 
+    flex-shrink: 0;
+    display: flex;
+    background: #ffffff;  
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+}
+.ContentForm .btn-close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+   background: red;
+   color: white;
+   width: 10px;
+   height: 10px;
+   top: .2rem;
+   right: .2rem;
+}
+.form-login{
+    width: 350px;
+    height: 480;
+   
+    background: white;
+    border-radius: 5px;
+    
+   
+   
+}
+.img-logo{
+    text-align: center;
+    padding: 2rem;
+}
+.form-login input {
+    display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: #f2f2f2;
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.interface-form {
+    width: 350px;
+    height: 480px;
+    flex-shrink: 0;
+    display: flex;
+    background: #ffffff;  
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top:-240px;
+    margin-left: -175px;
+    
+
+    
+}
+.logo img{
+    padding: 10px;
+    margin : 10px;
+}
+
+form input {
+    display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: #f2f2f2;
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.ContentForm form .btn-entrar {
+   display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: var(--dark);
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 16px;
+    cursor: pointer;
+    color: #ffffff;
+}
+.ContentForm form  .txtFim{
+    margin: 20px auto;
+    outline: 0;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    width: 80%;
+    border: 0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 15px;
+    cursor: pointer;
+    
+}
+.ContentForm form  .txtFim span{
+    text-decoration: none;
+    color: var(--light-color);
+    font-size: 12px;
+}
+ 

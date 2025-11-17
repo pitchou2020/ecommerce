@@ -1,0 +1,249 @@
+.form-cadastro {
+    
+    width: 70rem;
+    margin: 6.4rem auto;
+    background: white;
+    border: 1px solid#d3e2e5;
+    border-radius: 2rem;
+    overflow: hidden;
+    padding: 8rem;
+    margin-top: 10rem;
+
+}
+
+fieldset {
+    border: 0;
+}
+
+fieldset+fieldset {
+    margin-top: 8rem;
+}
+
+fieldset legend {
+    width: 100%;
+    font-size: 3.2rem;
+    line-height: 1.5;
+
+    color: #5c8599;
+    font-weight: 700;
+
+    border-bottom: 1px solid #d3e2e5;
+    margin-bottom: 4rem;
+    padding: 2.4rem;
+}
+
+.input-block+.input-block,
+.switch {
+    margin-top: 2.4rem;
+}
+
+.input-block label,
+.switch label {
+    color: #8fa7b3;
+
+    line-height: 1.5;
+    margin-right: 10px;
+}
+
+.input-block label span,
+.switch label span {
+    font-size: 1.4rem;
+    color: #8fa7b3;
+    margin-left: 2.4rem;
+}
+
+.input-block input,
+.input-block textarea {
+    width: 100%;
+    background: #f5f8fa;
+    border: 1px solid #d3e2e5;
+    border-radius: 2rem;
+
+    color: #5c8599;
+}
+
+.input-block input {
+    height: 6.4rem;
+    width: 100%;
+    padding: 0 1.6rem;
+}
+
+.input-block input[type="checkbox"] {
+    display: block;
+    width: 100px;
+    height: 25px;
+    position: relative;
+    appearance: none;
+    /*cancela o disign padrão do checkbox vira so um quadrado */
+    border-radius: 25px;
+    cursor: pointer;
+    background: var(--grey);
+    
+}
+
+.input-block input[type="checkbox"]:checked {
+    box-shadow: inset 0 0 4px 2px #A1E9C5;
+
+    background: #f1f1f1;
+
+}
+
+.input-block input[type="checkbox"]::before {
+    content: "Não";
+    width: calc(25px - 4px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+
+
+    /*transform: scale(1.1);*/
+    transition: all 400ms;
+}
+
+.input-block input[type="checkbox"]:checked::before {
+    content: "Sim";
+    left: 50px;
+    background-color: #22bb88;
+
+
+}
+.input-block .primary-button{
+    margin-top: 6.4rem;
+
+    width: 100%;
+    height: 6.4rem;
+    border: 0;
+    cursor: pointer;
+    background : var(--dark);
+    border-radius: 2rem;
+    color: white;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+    transition: background-color .2s;
+}
+
+.input-block .primary-button:hover{
+    background: var(--congolinaria);
+}
+
+.switch-mode2 {
+    display: block;
+    width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    background: var(--grey);
+    cursor: pointer;
+    position: relative;
+}
+
+.switch-mode2::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: calc(25px - 4px);
+    background: var(--congolinaria);
+    border-radius: 50%;
+    transition: all .3s ease;
+}
+input#switch-mode2{
+display: none;
+   /* visibility: hidden;*/
+}
+#switch-mode2:checked +.switch-mode2::before {
+    left: calc(100% - (25px - 4px) - 2px);
+}
+
+.input-block input:valid,
+.input-block textarea:valid {
+    border: 1px solid #A1E9C5;
+}
+
+.input-block textarea {
+    height: clamp(12rem, 16rem, 24rem);
+    resize: vertical;
+    padding: 1.6rem;
+    line-height: 2.8rem;
+}
+
+.input-block.images button {
+    border: 1px dashed #96d2f0;
+    width: 100%;
+    background: #f5f8fa;
+    height: 6.4rem;
+    padding: 0 1.6rem;
+    margin-top: 2.4rem;
+    border-radius: 2rem;
+    cursor: pointer;
+
+}
+
+.new-upload {
+    position: relative;
+
+}
+
+.new-upload+.new-upload {
+    margin-top: 2.4rem;
+}
+
+.new-upload span {
+    position: absolute;
+    right: 12px;
+    bottom: 0px;
+
+    background: #ffffff;
+    border: 1px solid #d3e2e5;
+    box-sizing: border-box;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-top {
+    position: absolute;
+    right: 15px;
+    background: #a70606;
+    border: 1px solid #d3e2e5;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 10px;
+    transform: translate(0, 50%);
+
+
+    cursor: pointer;
+
+}
+.input-block.ingrendientes button{
+    border: 1px dashed #96d2f0;
+    width: 100%;
+    background: #f5f8fa;
+    height: 6.4rem;
+    padding: 0 1.6rem;
+    margin-top: 2.4rem;
+    border-radius: 2rem;
+    cursor: pointer;
+
+}
+
+.product-form-edit{
+    display: flex;
+	flex-wrap: wrap;
+	grid-gap: 24px;
+	margin-top: 24px;
+	width: 100%;
+	color: var(--dark);
+}
+
+        #content main .product-form-edit > div {
+            border-radius: 20px;
+            background: var(--light);
+            padding: 24px;
+            overflow-x: auto;
+        }

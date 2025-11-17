@@ -1,0 +1,102 @@
+.container-register{
+    position:fixed;
+    top: 0; left: 0; height: 100%; width: 100%;
+    z-index: 1004;
+    background: rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    padding:0 1rem;
+}
+.content-register{
+
+    position: relative;
+    width: 600px;
+    height: 480px;
+    height: auto;
+    background: white; 
+    flex-shrink: 0;
+    display: flex;
+    background: #ffffff;  
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: row;
+}
+.close-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+   background: red;
+   color: white;
+   width: 15px;
+   height: 15px;
+   top: .5rem;
+   right: .5rem;
+}
+.ContentRegisterImages{
+    width: 250px;
+height: 480px;
+background: #000;
+
+}
+.ContentRegisterForm{
+    width: 350px;
+height: 480px;
+flex-shrink: 0;
+display: flex;
+background: #ffffff;  
+border-radius: 5px;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+form input {
+    display: block;
+    margin: 20px auto;
+    outline: 0;
+    background: #f2f2f2;
+    width: 80%;
+    border: 0;
+    padding: 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+form .btn-entrar {
+    display: block;
+     margin: 20px auto;
+     outline: 0;
+     background: var(--dark);
+     width: 80%;
+     border: 0;
+     padding: 15px;
+     border-radius: 3px;
+     box-sizing: border-box;
+     font-size: 16px;
+     cursor: pointer;
+     color: #ffffff;
+ }
+.AlertDanger{
+    background-color:#f8d7da;
+    color: #842029;
+    margin: 20px 0;
+    border: 1px solid #badbcc;
+    border-radius:4px;
+    padding: 7px; 
+}
+.AlertSucess{
+    background-color:#d1e7dd;
+    color: #0f5132;
+    margin: 20px 0;
+    border: 1px solid #badbcc;
+    border-radius:4px;
+    padding: 7px;
+}
+.FormRegister{
+    width: 100%;
+    background: white;
+    display:flex;
+    flex-direction: column;
+    gap:15px;
+}
