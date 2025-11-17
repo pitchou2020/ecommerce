@@ -17,7 +17,7 @@ export default function DetalhePratoCOP30() {
   const [quantidade, setQuantidade] = useState(1);
   const [mensagem, setMensagem] = useState("");
 
-  // 🔎 Carrega prato + relacionados
+  // 🔎 Carregar dados
   useEffect(() => {
     axios
       .get("https://congolinaria.com.br/api/cardapio_cop30.php?idioma=pt")
@@ -30,12 +30,13 @@ export default function DetalhePratoCOP30() {
           .filter((p) => String(p.id) !== id)
           .sort(() => 0.5 - Math.random())
           .slice(0, 3);
+
         setRelacionados(outros);
       })
       .catch(console.error);
   }, [id]);
 
-  // 🚚 Cálculo de frete via CEP
+  // 🚚 Calcular frete
   const calcularFrete = async () => {
     const cepLimpo = cep.replace(/\D/g, "");
     if (cepLimpo.length !== 8) {
@@ -65,7 +66,7 @@ export default function DetalhePratoCOP30() {
     }
   };
 
-  // 🛍️ Adicionar ao carrinho Redux
+  // 🛍️ Adicionar ao Carrinho
   const adicionarAoCarrinho = () => {
     dispatch(
       adicionarAoCarrinhoRedux({
@@ -81,7 +82,11 @@ export default function DetalhePratoCOP30() {
   };
 
   if (!prato) {
-    return <p className="text-center mt-10 text-gray-500">Carregando prato...</p>;
+    return (
+      <p className="text-center mt-10 text-gray-500">
+        Carregando prato...
+      </p>
+    );
   }
 
   return (
@@ -95,11 +100,12 @@ export default function DetalhePratoCOP30() {
       </button>
 
       <div className="grid md:grid-cols-2 gap-8 items-start">
-        {/* Coluna Esquerda */}
+        {/* COLUNA ESQUERDA */}
         <div>
           <h1 className="text-3xl font-bold text-green-800 mb-2">{prato.nome}</h1>
           <p className="text-gray-700 mb-4 leading-relaxed">{prato.descricao}</p>
 
+          {/* Informações principais */}
           <div className="grid grid-cols-2 gap-2 text-sm mb-6">
             {prato.peso && <p><strong>Peso:</strong> {prato.peso}</p>}
             {prato.calorias && <p><strong>Calorias:</strong> {prato.calorias} kcal</p>}
@@ -109,23 +115,50 @@ export default function DetalhePratoCOP30() {
 
           {/* Ingredientes */}
           {prato.ingredientes && (
-            <div className="mb-4">
+            <div className="mb-6">
               <h2 className="font-semibold text-lg text-green-700">🌿 Ingredientes</h2>
-              <p className="text-gray-700 whitespace-pre-line">{prato.ingredientes}</p>
+              <p className="text-gray-700 whitespace-pre-line">
+                {prato.ingredientes}
+              </p>
             </div>
           )}
 
+          {/* Modo de preparo */}
+          {prato.modo_preparo && (
+            <div className="mb-6">
+              <h2 className="font-semibold text-lg text-green-700">🍳 Modo de Preparo</h2>
+              <p className="text-gray-700 whitespace-pre-line leading-relaxed">
+                {prato.modo_preparo}
+              </p>
+            </div>
+          )}
+
+          {/* Características do produto */}
+          <div className="my-6 bg-gray-50 border rounded-lg p-4">
+            <h2 className="font-semibold text-lg text-green-700 mb-2">
+              📦 Características do Produto
+            </h2>
+            <ul className="text-sm text-gray-700 space-y-1">
+              {prato.peso && <li><strong>Peso líquido:</strong> {prato.peso}</li>}
+              {prato.validade && <li><strong>Validade:</strong> {prato.validade}</li>}
+              {prato.tipo_prato && <li><strong>Tipo:</strong> {prato.tipo_prato}</li>}
+              {prato.conservacao && <li><strong>Conservação:</strong> {prato.conservacao}</li>}
+              {prato.embalagem && <li><strong>Embalagem:</strong> {prato.embalagem}</li>}
+              {prato.rendimento && <li><strong>Rendimento:</strong> {prato.rendimento}</li>}
+            </ul>
+          </div>
+
           {/* Tabela Nutricional */}
-          {(prato.proteina || prato.carboidrato || prato.gordura) && (
+          {(prato.calorias || prato.proteina || prato.carboidrato || prato.gordura) && (
             <div className="my-6 border rounded-lg overflow-hidden">
               <h2 className="bg-green-700 text-white text-center py-2 font-semibold">
-                Informações Nutricionais (por 100g)
+                Informações Nutricionais – Porção 100g
               </h2>
               <table className="w-full text-sm text-gray-700">
                 <tbody>
                   {prato.calorias && (
                     <tr className="border-b">
-                      <td className="p-2 font-medium">Calorias</td>
+                      <td className="p-2 font-medium">Valor Energético</td>
                       <td className="p-2 text-right">{prato.calorias} kcal</td>
                     </tr>
                   )}
@@ -143,18 +176,18 @@ export default function DetalhePratoCOP30() {
                   )}
                   {prato.gordura && (
                     <tr className="border-b">
-                      <td className="p-2 font-medium">Gorduras totais</td>
+                      <td className="p-2 font-medium">Gorduras Totais</td>
                       <td className="p-2 text-right">{prato.gordura} g</td>
                     </tr>
                   )}
                   {prato.fibra && (
                     <tr className="border-b">
-                      <td className="p-2 font-medium">Fibras alimentares</td>
+                      <td className="p-2 font-medium">Fibra Alimentar</td>
                       <td className="p-2 text-right">{prato.fibra} g</td>
                     </tr>
                   )}
                   {prato.sodio && (
-                    <tr>
+                    <tr className="border-b">
                       <td className="p-2 font-medium">Sódio</td>
                       <td className="p-2 text-right">{prato.sodio} mg</td>
                     </tr>
@@ -165,21 +198,24 @@ export default function DetalhePratoCOP30() {
           )}
 
           {/* Alergênicos */}
-          <div className="mb-4 border-t pt-4 text-sm">
-            {prato.contem && (
-              <p className="text-red-600 font-semibold">⚠️ Contém: {prato.contem}</p>
-            )}
-            {prato.pode_conter && (
-              <p className="text-orange-600 mt-1">Pode conter: {prato.pode_conter}</p>
-            )}
-          </div>
+          {(prato.contem || prato.pode_conter) && (
+            <div className="mb-6 bg-yellow-50 border border-yellow-300 rounded-lg p-4 text-sm">
+              <h2 className="font-semibold text-yellow-800 mb-1">⚠️ Alergênicos</h2>
+              {prato.contem && (
+                <p className="text-red-700 pb-1"><strong>Contém:</strong> {prato.contem}</p>
+              )}
+              {prato.pode_conter && (
+                <p className="text-yellow-800"><strong>Pode conter:</strong> {prato.pode_conter}</p>
+              )}
+            </div>
+          )}
 
           {/* Preço */}
           <p className="text-3xl font-bold text-green-800 mb-4">
             R$ {parseFloat(prato.preco).toFixed(2)}
           </p>
 
-          {/* Quantidade e Botão */}
+          {/* Quantidade + botão */}
           <div className="flex items-center gap-3 mb-4">
             <div className="flex items-center">
               <button
@@ -215,7 +251,7 @@ export default function DetalhePratoCOP30() {
             <p className="text-green-600 font-semibold mb-4">{mensagem}</p>
           )}
 
-          {/* Calcular Frete */}
+          {/* Cálculo de Frete */}
           <div className="mt-4 border-t pt-4">
             <h2 className="font-semibold text-lg text-green-700 mb-2 flex items-center gap-2">
               <FaTruck className="text-green-700" /> Calcular Frete
@@ -253,7 +289,7 @@ export default function DetalhePratoCOP30() {
           </div>
         </div>
 
-        {/* Coluna Direita (Imagem) */}
+        {/* COLUNA DIREITA – IMAGEM */}
         <div className="flex justify-center items-start">
           <img
             src={`https://congolinaria.com.br/${prato.imagem}`}

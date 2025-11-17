@@ -37,7 +37,7 @@ export default function NavMenu() {
         {/* Menu Desktop */}
         <nav className="hidden lg:flex gap-4 text-sm font-medium text-gray-700">
           <a href="/" className="hover:text-yellow-600">Início</a>
-          <a href="/loja-congo" className="hover:text-yellow-600">Loja</a>
+          <a href="/cardapio-congelados" className="hover:text-yellow-600">Loja</a>
           <a href="/redirect_cardapio/" className="hover:text-yellow-600">Cardápio</a>
           <a href="/vegFest/" className="hover:text-yellow-600">VegFest</a>
           <a href="/receitas" className="hover:text-yellow-600">Receitas</a>
