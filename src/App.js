@@ -97,6 +97,7 @@ function App() {
           <Route path="/avaliar-receita" element={<AvaliarReceita />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/sacola" element={<Sacola />} />
+          <Route path="/cardapio-congelados" element ={<CardapioCOP30 />} />
           <Route path="/prato/:id" element={<DetalhePratoCOP30 />} />
 
           {/* ADMIN GERAL */}
