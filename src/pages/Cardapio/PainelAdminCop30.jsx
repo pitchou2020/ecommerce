@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Sidebar from '../../composant/Sidebar/Sidebar';
 
 export default function PainelAdminCop30() {
   const [pratos, setPratos] = useState([]);
@@ -18,7 +19,25 @@ export default function PainelAdminCop30() {
     modo_servir: '',
     preco: '',
     imagem: null,
-    idioma: 'pt'
+    idioma: 'pt',
+
+    // NOVOS CAMPOS
+    peso: '',
+    validade: '',
+    conservacao: '',
+    embalagem: '',
+    rendimento: '',
+    tipo_prato: '',
+
+    calorias: '',
+    proteina: '',
+    carboidrato: '',
+    gordura: '',
+    fibra: '',
+    sodio: '',
+
+    contem: '',
+    pode_conter: ''
   });
 
   const carregarPratos = () => {
@@ -42,19 +61,16 @@ export default function PainelAdminCop30() {
     if (loading) return;
     setLoading(true);
 
-    // VALIDAÇÕES ESSENCIAIS (evita 400 e 500)
     if (!form.nome.trim()) {
       alert("O nome do prato é obrigatório.");
       setLoading(false);
       return;
     }
-
     if (!form.categoria_id) {
       alert("Selecione uma categoria.");
       setLoading(false);
       return;
     }
-
     if (!form.preco.trim()) {
       alert("O preço é obrigatório.");
       setLoading(false);
@@ -64,7 +80,6 @@ export default function PainelAdminCop30() {
     try {
       const formData = new FormData();
 
-      // Envia imagem somente se existir
       Object.entries(form).forEach(([key, value]) => {
         if (key === "imagem") {
           if (value) formData.append("imagem", value);
@@ -76,14 +91,11 @@ export default function PainelAdminCop30() {
       const url = "https://congolinaria.com.br/api/cardapio_cop30.php";
 
       if (form.id) {
-        // UPDATE via POST com _method=PUT
         formData.append("_method", "PUT");
-
         await axios.post(url, formData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
       } else {
-        // INSERT normal
         await axios.post(url, formData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
@@ -94,16 +106,30 @@ export default function PainelAdminCop30() {
 
       setForm({
         id: null,
-        nome: "",
-        descricao: "",
-        categoria_id: "",
-        ingredientes: "",
-        modo_preparo: "",
-        montagem_prato: "",
-        modo_servir: "",
-        preco: "",
+        nome: '',
+        descricao: '',
+        categoria_id: '',
+        ingredientes: '',
+        modo_preparo: '',
+        montagem_prato: '',
+        modo_servir: '',
+        preco: '',
         imagem: null,
-        idioma: "pt"
+        idioma: 'pt',
+        peso: '',
+        validade: '',
+        conservacao: '',
+        embalagem: '',
+        rendimento: '',
+        tipo_prato: '',
+        calorias: '',
+        proteina: '',
+        carboidrato: '',
+        gordura: '',
+        fibra: '',
+        sodio: '',
+        contem: '',
+        pode_conter: ''
       });
 
       setPreviewImagem(null);
@@ -141,7 +167,25 @@ export default function PainelAdminCop30() {
       modo_servir: prato.modo_servir ?? '',
       preco: prato.preco ?? '',
       imagem: null,
-      idioma: 'pt'
+      idioma: 'pt',
+
+      // NOVOS CAMPOS
+      peso: prato.peso ?? '',
+      validade: prato.validade ?? '',
+      conservacao: prato.conservacao ?? '',
+      embalagem: prato.embalagem ?? '',
+      rendimento: prato.rendimento ?? '',
+      tipo_prato: prato.tipo_prato ?? '',
+
+      calorias: prato.calorias ?? '',
+      proteina: prato.proteina ?? '',
+      carboidrato: prato.carboidrato ?? '',
+      gordura: prato.gordura ?? '',
+      fibra: prato.fibra ?? '',
+      sodio: prato.sodio ?? '',
+
+      contem: prato.contem ?? '',
+      pode_conter: prato.pode_conter ?? ''
     });
 
     setPreviewImagem(
@@ -163,10 +207,13 @@ export default function PainelAdminCop30() {
   };
 
   return (
+
+     <div className="flex min-h-screen">
+    <Sidebar />
     <div className="p-4 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Administração Cardápio COP30</h1>
 
-      {/* Campos do formulário */}
+      {/* CAMPOS BÁSICOS */}
       <input type="text" placeholder="Nome do prato"
         value={form.nome}
         onChange={e => setForm({ ...form, nome: e.target.value })}
@@ -186,6 +233,7 @@ export default function PainelAdminCop30() {
         ))}
       </select>
 
+      {/* INGREDIENTES / PREPARO */}
       <textarea placeholder="Ingredientes"
         value={form.ingredientes}
         onChange={e => setForm({ ...form, ingredientes: e.target.value })}
@@ -206,19 +254,105 @@ export default function PainelAdminCop30() {
         onChange={e => setForm({ ...form, modo_servir: e.target.value })}
         className="w-full border p-2 mb-2 rounded" />
 
+      {/* CAMPOS TÉCNICOS */}
+      <h2 className="text-lg font-semibold mt-4 mb-1">Características Técnicas</h2>
+
+      <input type="text" placeholder="Peso"
+        value={form.peso}
+        onChange={e => setForm({ ...form, peso: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      <input type="text" placeholder="Validade"
+        value={form.validade}
+        onChange={e => setForm({ ...form, validade: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      <input type="text" placeholder="Conservação"
+        value={form.conservacao}
+        onChange={e => setForm({ ...form, conservacao: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      <input type="text" placeholder="Embalagem"
+        value={form.embalagem}
+        onChange={e => setForm({ ...form, embalagem: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      <input type="text" placeholder="Rendimento"
+        value={form.rendimento}
+        onChange={e => setForm({ ...form, rendimento: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      <input type="text" placeholder="Tipo do prato (ex.: Principal, Entrada, Acompanhamento)"
+        value={form.tipo_prato}
+        onChange={e => setForm({ ...form, tipo_prato: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      {/* TABELA NUTRICIONAL */}
+      <h2 className="text-lg font-semibold mt-4 mb-1">Tabela Nutricional (por 100g)</h2>
+
+      <div className="grid grid-cols-2 gap-2">
+        <input type="text" placeholder="Calorias (kcal)"
+          value={form.calorias}
+          onChange={e => setForm({ ...form, calorias: e.target.value })}
+          className="border p-2 rounded" />
+
+        <input type="text" placeholder="Proteína (g)"
+          value={form.proteina}
+          onChange={e => setForm({ ...form, proteina: e.target.value })}
+          className="border p-2 rounded" />
+
+        <input type="text" placeholder="Carboidrato (g)"
+          value={form.carboidrato}
+          onChange={e => setForm({ ...form, carboidrato: e.target.value })}
+          className="border p-2 rounded" />
+
+        <input type="text" placeholder="Gordura (g)"
+          value={form.gordura}
+          onChange={e => setForm({ ...form, gordura: e.target.value })}
+          className="border p-2 rounded" />
+
+        <input type="text" placeholder="Fibra (g)"
+          value={form.fibra}
+          onChange={e => setForm({ ...form, fibra: e.target.value })}
+          className="border p-2 rounded" />
+
+        <input type="text" placeholder="Sódio (mg)"
+          value={form.sodio}
+          onChange={e => setForm({ ...form, sodio: e.target.value })}
+          className="border p-2 rounded" />
+      </div>
+
+      {/* ALERGÊNICOS */}
+      <h2 className="text-lg font-semibold mt-4 mb-1">Alergênicos</h2>
+
+      <input type="text" placeholder="Contém"
+        value={form.contem}
+        onChange={e => setForm({ ...form, contem: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      <input type="text" placeholder="Pode conter"
+        value={form.pode_conter}
+        onChange={e => setForm({ ...form, pode_conter: e.target.value })}
+        className="w-full border p-2 mb-2 rounded" />
+
+      {/* PREÇO */}
       <input type="text" placeholder="Preço"
         value={form.preco}
         onChange={e => setForm({ ...form, preco: e.target.value })}
         className="w-full border p-2 mb-2 rounded" />
 
+      {/* IMAGEM */}
       <input type="file"
         accept="image/*"
         onChange={handleImagemChange}
         className="w-full border p-2 mb-2 rounded" />
 
       {previewImagem && (
-        <img src={previewImagem}
-          className="w-full max-h-60 object-cover rounded mb-3" />
+        <img
+          src={previewImagem}
+          className="w-full max-h-60 object-cover rounded mb-3"
+          alt="Preview"
+        />
       )}
 
       <button
@@ -229,13 +363,14 @@ export default function PainelAdminCop30() {
         {form.id ? "Atualizar Prato" : "Cadastrar Prato"}
       </button>
 
+      {/* LISTA DE PRATOS */}
       <h2 className="text-lg font-bold mt-6 mb-2">Pratos Cadastrados</h2>
 
       <div className="grid gap-4">
         {pratos.map(prato => (
           <div key={prato.id} className="border p-4 rounded shadow">
-            <h3 className="font-semibold">{prato.nome}</h3>
-            <p>{prato.descricao}</p>
+            <h3 className="font-semibold text-lg">{prato.nome}</h3>
+            <p className="text-sm">{prato.descricao}</p>
 
             {prato.imagem && (
               <img
@@ -254,7 +389,7 @@ export default function PainelAdminCop30() {
           </div>
         ))}
       </div>
-
+</div>
     </div>
   );
 }

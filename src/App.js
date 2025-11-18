@@ -24,6 +24,8 @@ import PainelGarcomPedidos from "./pages/Cardapio/PainelGarcomPedidos";
 import FecharPedidoGarcom from "./pages/Cardapio/FecharPedidoGarcom";
 import PainelCaixaCOP30 from "./pages/Cardapio/PainelCaixaCOP30";
 import PainelAdminCop30 from "./pages/Cardapio/PainelAdminCop30";
+import PainelHeroAdmin from "./pages/Home/PainelHeroAdmin";
+
 
 import Checkout from "./pages/Cardapio/Checkout";
 import Sacola from "./pages/Sacola/Sacola";
@@ -64,151 +66,110 @@ import DetalhePratoCOP30 from './pages/Cardapio/DetalhePratoCOP30';
 function App() {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes);
-  const recettes = useSelector((state) => state.recettesReducer);
   const navigate = useNavigate();
-  const { theme } = useContext(ThemeContext);
 
-  // ---- Inicialização ----
+  // Carrega notes uma única vez
   useEffect(() => {
     if (!notes.list) dispatch(getNotesFromAPI());
   }, [dispatch, notes]);
 
-  // ---- Controle de modais e estados simples ----
   const [showModal, setShowModal] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showModalLogin, setShowModalLogin] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
-  const [dataComment, setDataComment] = useState([]);
 
-  const windowWidth = useRef(window.innerWidth);
-
-  // ---- Funções auxiliares ----
-  const toggleModal = () => setShowModal(!showModal);
-  const toggleModalLogin = () => setShowModalLogin(!showModalLogin);
-  const toggleModalRegister = () => setShowModalRegister(!showModalRegister);
-
-  const getComments = async (id_recettes) => {
-    try {
-      const response = await fetch(
-        `http://localhost/RestoAfrica/src/views/single_recette_coment.php?id=${id_recettes}`
-      );
-      const data = await response.json();
-      setDataComment(data);
-    } catch (error) {
-      console.error("Erro ao buscar comentários:", error);
-    }
-  };
-
-  // ---- Rotas ----
   return (
-
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
-    <NavMenu />
+      <NavMenu />
 
       <main className="flex-grow">
-    <ThemeContextProvider>
-      
-      <Routes>
-        {/* Página inicial */}
-        <Route
-          path="/"
-          element={
-            <Home
-              modal={showModalLogin}
-              func2={toggleModalLogin}
-              win={windowWidth.current}
-              sidebar={showSidebar}
-              toggleModal={toggleModal}
-              showModal={showModal}
-            />
-          }
-        />
-        <Route path="/admin/estoque" element={<AppEstoque />}>
-          <Route index element={<Estoque />} />
-          <Route path="historico" element={<HistoricoMovimentacao />} />
-          <Route path="relatorio" element={<Relatorios />} />
-        </Route>
-        <Route path="/admin/pratos-populares" element={<PainelPratosPopulares />} />
-        {/* Cardápio público */}
-        <Route path="/redirect_cardapio" element={<Cardapio />} />
-        <Route path="/painel-receitas-autorais" element={<PainelReceitasAutorais/>}/>
 
-        {/* Painel do cardápio (admin) */}
-        <Route
-          path="/admin/cardapio"
-          element={
-            <Protected>
-              <AdminCardapio />
-            </Protected>
-          }
-        />
+        <Routes>
 
-     
-
-        {/* Cadastro e login */}
-        <Route path="/register" element={<RegisterUser />} />
-        <Route
-          path="/login"
-          element={
-            <ThemeContextProvider>
-              <Login
-                isLogin={false}
-                statusLogin={{}}
-                valorEmail={() => {}}
-                valorSenha={() => {}}
-                funcRegister={() => navigate("/register")}
-              />
-            </ThemeContextProvider>
-          }
-        />
-
-        {/* Páginas auxiliares */}
-        <Route path="/cadastro" element={<Cadastrar sidebar={showSidebar} />} />
-        <Route path="/receita/:slug" element={<Receita />} />
-        <Route path="/recettesCategory/:slug" element={<RecettesCategory />} />
-
-        {/* Painel Admin geral */}
-        <Route
-          path="/admin"
-          element={
-            <Protected>
-              <Admin sidebar={showSidebar} toggleModal={toggleModal} showModal={showModal} />
-            </Protected>
-          }
-        />
-
-       
-
-        {/* Página 404 */}
-        <Route path="*" element={<NotFound />} />
-
-        <Route path="/" element={<Home />} />
-          <Route path="/redirect_cardapio/" element={<CardapioCongolinaria />} />
-          <Route path="/carrinho" element={<Carrinho />} />
+          {/* PÁGINAS PÚBLICAS */}
+          <Route path="/" element={<Home />} />
+          <Route path="/redirect_cardapio" element={<Cardapio />} />
+          <Route path="/register" element={<RegisterUser />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/receitas" element={<Receita />} />
-<Route path="/assistente-completo" element={<AssistenteCompleto />} />
-<Route path="/avaliar-receita" element={<AvaliarReceita />} />
-
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/cardapio" element={<AdminCardapio />} />
-          <Route path="cardapio-congelados" element={<CardapioCOP30 />} />
+          <Route path="/receita/:slug" element={<Receita />} />
+          <Route path="/recettesCategory/:slug" element={<RecettesCategory />} />
+          <Route path="/assistente-completo" element={<AssistenteCompleto />} />
+          <Route path="/avaliar-receita" element={<AvaliarReceita />} />
+          <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/sacola" element={<Sacola />} />
           <Route path="/prato/:id" element={<DetalhePratoCOP30 />} />
-          
-          <Route path="admin/painel-pedidos-cop30" element={<PainelPedidosCOP30 />} />
-          <Route path="admin/painel-garcom-cop30" element={<PainelGarcomCOP30 />} />
-          <Route path="admin/painel-garcom-pedidos" element={<PainelGarcomPedidos />} />
-          <Route path="admin/painel-admin-cop30" element = {<PainelAdminCop30 />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="fechar-pedido-garçom" element={<FecharPedidoGarcom/>}/>
-          <Route path="painel-caixa" element = {<PainelCaixaCOP30 />} />
-          
 
-      </Routes>
-      
-    </ThemeContextProvider>
-    </main>
+          {/* ADMIN GERAL */}
+          <Route
+            path="/admin"
+            element={
+              <Protected>
+                <Admin />
+              </Protected>
+            }
+          />
+      <Route path="/admin/pratos-populares" element = { <Protected><PainelPratosPopulares/></Protected>}/>
+          {/* PAINEL ADMIN CARDÁPIO */}
+          <Route
+            path="/admin/cardapio"
+            element={
+              <Protected>
+                <AdminCardapio />
+              </Protected>
+            }
+          />
+
+          {/* COP30 - PROTEGIDOS */}
+          <Route
+            path="/admin/painel-admin-cop30"
+            element={
+              <Protected>
+                <PainelAdminCop30 />
+              </Protected>
+            }
+          />
+
+          <Route
+            path="/admin/painel-pedidos-cop30"
+            element={
+              <Protected>
+                <PainelPedidosCOP30 />
+              </Protected>
+            }
+          />
+<Route path="/admin/painel-hero-admin" element={<Protected>< PainelHeroAdmin/></Protected>}/>
+          <Route
+            path="/admin/painel-garcom-cop30"
+            element={
+              <Protected>
+                <PainelGarcomCOP30 />
+              </Protected>
+            }
+          />
+
+          <Route
+            path="/admin/painel-garcom-pedidos"
+            element={
+              <Protected>
+                <PainelGarcomPedidos />
+              </Protected>
+            }
+          />
+
+          <Route
+            path="/painel-caixa"
+            element={
+              <Protected>
+                <PainelCaixaCOP30 />
+              </Protected>
+            }
+          />
+
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+
+        </Routes>
+      </main>
 
       <Footer />
     </div>

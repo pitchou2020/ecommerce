@@ -17,6 +17,16 @@ export const MenuData = [
     icon: <Utensils size={18} />
   },
   {
+    title: 'Congelados',
+    url: '/admin/painel-admin-cop30',
+    icon: <Utensils size={18} />
+  },
+  {
+    title: "Hero Home",
+    url : "/admin/painel-hero-admin",
+    icon: <Utensils size={18} />
+  },
+  {
     title: 'Configurações',
     url: '/admin/configuracoes',
     icon: <Settings size={18} />

@@ -6,6 +6,11 @@ import { ThemeContext } from './../../Context/ThemeContext';
 import logo from './../../assets/images/chapado.png';
 
 export default function Login({ onClose }) {
+
+  console.log("LOGIN DEBUG");
+console.log("LS isLoggedIn:", localStorage.getItem("isLoggedIn"));
+console.log("LS nivel:", localStorage.getItem("nivel"));
+
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const dispatch = useDispatch();
@@ -21,13 +26,24 @@ export default function Login({ onClose }) {
     dispatch(getUser({ email, senha }));
   };
 
-  useEffect(() => {
-    if (!loading && mensagem && !error) {
-      onClose?.();
-      setEmail('');
-      setSenha('');
-    }
-  }, [mensagem, loading, error, onClose]);
+useEffect(() => {
+  if (!loading && mensagem && !error) {
+    // Fecha modal, se existir
+    onClose?.();
+    
+    // Limpa campos
+    setEmail('');
+    setSenha('');
+
+    // Redireciona após 300ms
+    const timer = setTimeout(() => {
+      navigate("/admin/painel-admin-cop30");
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }
+}, [mensagem, loading, error]);
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">

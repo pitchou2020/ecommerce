@@ -110,4 +110,5 @@ export function getUser(data) {
 
 
 export const { loginRequest, loginSuccess, loginFailure, logout } = loginReducer.actions;
+
 export default loginReducer.reducer;
