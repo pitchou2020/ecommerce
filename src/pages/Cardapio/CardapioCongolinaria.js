@@ -21,7 +21,15 @@ export default function CardapioCongolinaria() {
   const [recibo, setRecibo] = useState(null);
   const [categoriaAberta, setCategoriaAberta] = useState('');
   const [termoBusca, setTermoBusca] = useState('');
+
   const dispatch = useDispatch();
+
+  // 🔧 NORMALIZAÇÃO (SEM ACENTO + LOWERCASE)
+  const normalizar = (str) =>
+    str
+      ?.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
 
   useEffect(() => {
     async function fetchItens() {
@@ -103,8 +111,9 @@ export default function CardapioCongolinaria() {
     setCategoriaAberta(prev => (prev === categoria ? '' : categoria));
   };
 
-  const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'];
+  const diasSemana = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
   const diaAtual = diasSemana[new Date().getDay()];
+  const diaAtualNormalizado = normalizar(diaAtual);
 
   const itensFiltrados = termoBusca
     ? itens.filter(item => item.titulo.toLowerCase().includes(termoBusca.toLowerCase()))
@@ -116,33 +125,22 @@ export default function CardapioCongolinaria() {
     return acc;
   }, {});
 
+  // ✔ CORREÇÃO DEFINITIVA DO RODÍZIO
   const rodiziosAgrupadosPorDia = itens
     .filter(item => item.categoria === 'Rodízio' && item.rodizioDias)
     .reduce((acc, item) => {
-      if (!acc[item.rodizioDias]) acc[item.rodizioDias] = [];
-      acc[item.rodizioDias].push(item);
+      const chave = normalizar(item.rodizioDias);
+      if (!acc[chave]) acc[chave] = [];
+      acc[chave].push(item);
       return acc;
     }, {});
 
   return (
     <>
-      
-
       <div className="min-h-screen p-4 bg-gray-50">
         {toast && <Toast toast={toast} />}
 
-        <div className="fixed top-20 right-4 flex flex-col items-center gap-2 z-50">
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center animate-pulse">
-            🛒
-          </button>
-
-          <button
-            onClick={limparCarrinhoGlobal}
-            className="bg-red-500 hover:bg-red-600 text-white text-sm rounded-full px-4 py-2 shadow-md"
-          >
-            Limpar Carrinho
-          </button>
-        </div>
+        
 
         <div className="flex flex-wrap justify-center gap-2 mb-4">
           {['Penha', 'Sumaré'].map((u) => (
@@ -179,11 +177,16 @@ export default function CardapioCongolinaria() {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          {rodiziosAgrupadosPorDia[diaAtual] && (
+
+          {/* ⭐ RODÍZIO DO DIA — AGORA FUNCIONANDO */}
+          {rodiziosAgrupadosPorDia[diaAtualNormalizado] && (
             <div className="mb-8 border-l-4 border-yellow-500 pl-4">
-              <h2 className="text-2xl font-bold text-yellow-700 mb-2">🍽️ Rodízio de {diaAtual}</h2>
+              <h2 className="text-2xl font-bold text-yellow-700 mb-2">
+                🍽️ Rodízio de {diaAtual.charAt(0).toUpperCase() + diaAtual.slice(1)}
+              </h2>
+
               <div className="grid gap-4">
-                {rodiziosAgrupadosPorDia[diaAtual].map((item) => (
+                {rodiziosAgrupadosPorDia[diaAtualNormalizado].map((item) => (
                   <div key={item.id} className="border rounded p-3 bg-white shadow">
                     <h3 className="text-lg font-bold text-green-700">{item.titulo}</h3>
                     <p className="text-sm text-gray-600">{item.descricao}</p>
@@ -222,8 +225,10 @@ export default function CardapioCongolinaria() {
             </div>
           )}
 
+          {/* ⭐ OUTRAS CATEGORIAS */}
           {Object.keys(categoriasAgrupadas).map((categoria) => {
             if (categoria === 'Rodízio') return null;
+
             return (
               <div key={categoria} className="mb-4">
                 <button
@@ -236,14 +241,15 @@ export default function CardapioCongolinaria() {
                 {categoriaAberta === categoria && (
                   <div className="grid gap-4 animate-fadeIn">
                     {categoriasAgrupadas[categoria].map((item) => {
-                      // Tratamento do campo "dia"
+
+                      // 🗓️ TRATAMENTO DO CAMPO "dia"
                       let textoDia = '';
                       if (item.dia) {
                         if (item.dia.toLowerCase() === 'todos') {
                           textoDia = 'Todos os dias';
                         } else {
-                          const diaFormatado = item.dia.charAt(0).toUpperCase() + item.dia.slice(1).toLowerCase();
-                          textoDia = `${diaFormatado}-feira`;
+                          const normalizado = normalizar(item.dia);
+                          textoDia = normalizado.charAt(0).toUpperCase() + normalizado.slice(1);
                         }
                       }
 

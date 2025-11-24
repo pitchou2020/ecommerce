@@ -90,54 +90,38 @@ export default function Checkout() {
   };
 
   // 💳 Finaliza o pedido
-  const handleFinalizarPedido = async () => {
-    if (!nome || !telefone || !cpf || !cep || !endereco || !numero) {
-      alert("Preencha todos os campos obrigatórios.");
-      return;
+const handleFinalizarPedido = async () => {
+  try {
+    const res = await fetch("https://congolinaria.com.br/api/mercadopago_checkout.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nome_cliente: nome,
+        cpf,
+        telefone,
+        observacoes,
+        frete,
+        total: calcularTotal(),
+        pedido: carrinho
+      })
+    });
+
+    const data = await res.json();
+    console.log("Retorno MP:", data);
+
+    if (data?.checkout_url) {
+      window.location.href = data.checkout_url;
+    } else {
+      alert("Erro ao criar pagamento");
+      console.error(data);
     }
 
-    const totalPedido = calcularTotal();
-    if (totalPedido <= 0) {
-      alert("O total do pedido não pode ser zero.");
-      return;
-    }
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao conectar ao servidor.");
+  }
+};
 
-    try {
-      const res = await fetch(
-        "https://congolinaria.com.br/api/pagseguro_checkout.php",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nome_cliente: nome,
-            cpf,
-            telefone,
-            pagamento: formaPagamento,
-            observacoes,
-            endereco: `${endereco}, ${numero} - ${bairro}, ${cidade}/${uf}, CEP: ${cep}`,
-            frete,
-            total: totalPedido,
-            pedido: carrinho,
-          }),
-        }
-      );
-
-      const data = await res.json();
-
-      if (data?.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
-      } else if (data?.pixQrCode) {
-        alert("Abra o app do banco e escaneie o QR Code Pix!");
-        console.log("QR Code:", data.pixQrCode);
-      } else {
-        alert("Erro ao iniciar pagamento.");
-        console.error(data);
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Falha de conexão com o servidor.");
-    }
-  };
 
   // 🔸 Opções de pagamento
   const opcoesPagamento = [

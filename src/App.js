@@ -62,6 +62,12 @@ import HistoricoMovimentacao from './pages/Estoque/HistoricoMovimentacao';
 import Relatorios from './pages/Estoque/Relatorios';
 import DetalhePratoCOP30 from './pages/Cardapio/DetalhePratoCOP30';
 
+import IAReceitas from "./pages/Receita/IAReceitas";
+import PedidoConcluido from "./pages/Cardapio/PedidoConcluido";
+import PedidoPendente from "./pages/Cardapio/PedidoPendente";
+import PedidoFalhou from "./pages/Cardapio/PedidoFalhou";
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -99,6 +105,11 @@ function App() {
           <Route path="/sacola" element={<Sacola />} />
           <Route path="/cardapio-congelados" element ={<CardapioCOP30 />} />
           <Route path="/prato/:id" element={<DetalhePratoCOP30 />} />
+          <Route path="/receitas" element={<IAReceitas/>}/>
+          <Route path="/checkout" element={<Checkout/>}/>
+          <Route path="/pedido-concluido" element={<PedidoConcluido />} />
+          <Route path="/pedido-pendente" element={<PedidoPendente />} />
+          <Route path="/pedido-falhou" element={<PedidoFalhou />} />
 
           {/* ADMIN GERAL */}
           <Route
