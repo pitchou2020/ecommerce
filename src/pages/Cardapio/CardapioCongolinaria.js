@@ -24,13 +24,14 @@ export default function CardapioCongolinaria() {
 
   const dispatch = useDispatch();
 
-  // 🔧 NORMALIZAÇÃO (SEM ACENTO + LOWERCASE)
+  // NORMALIZAR STRINGS (sem acentos)
   const normalizar = (str) =>
     str
       ?.normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase();
 
+  // BUSCAR ITENS DO CARDÁPIO
   useEffect(() => {
     async function fetchItens() {
       try {
@@ -111,27 +112,76 @@ export default function CardapioCongolinaria() {
     setCategoriaAberta(prev => (prev === categoria ? '' : categoria));
   };
 
+  // DIA ATUAL
   const diasSemana = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
   const diaAtual = diasSemana[new Date().getDay()];
   const diaAtualNormalizado = normalizar(diaAtual);
 
+  // FILTRO DE BUSCA
   const itensFiltrados = termoBusca
     ? itens.filter(item => item.titulo.toLowerCase().includes(termoBusca.toLowerCase()))
     : itens;
 
+  // AGRUPAR POR CATEGORIA
   const categoriasAgrupadas = itensFiltrados.reduce((acc, item) => {
     if (!acc[item.categoria]) acc[item.categoria] = [];
     acc[item.categoria].push(item);
     return acc;
   }, {});
 
-  // ✔ CORREÇÃO DEFINITIVA DO RODÍZIO
+  // 🔥 CORREÇÃO DEFINITIVA DO RODÍZIO
+  const tratarRodizioDias = (dias) => {
+    if (!dias) return [];
+
+    // JSON ["quarta"]
+    if (dias.startsWith("[")) {
+      try {
+        return JSON.parse(dias).map(d => normalizar(d));
+      } catch {}
+    }
+
+    let d = normalizar(dias).trim();
+    d = d.replace(/-/g, " ").replace(/\s+/g, " ");
+
+    const mapa = {
+      "quarta feira": "quarta",
+      "quarta": "quarta",
+      "4a feira": "quarta",
+      "4ª feira": "quarta",
+
+      "terca feira": "terca",
+      "terca": "terca",
+
+      "segunda feira": "segunda",
+      "segunda": "segunda",
+
+      "quinta feira": "quinta",
+      "quinta": "quinta",
+
+      "sexta feira": "sexta",
+      "sexta": "sexta",
+
+      "sabado": "sabado",
+      "domingo": "domingo",
+
+      "todos": "todos",
+      "todos os dias": "todos"
+    };
+
+    return mapa[d] ? [mapa[d]] : [d];
+  };
+
+  // AGRUPAR RODÍZIO POR DIA
   const rodiziosAgrupadosPorDia = itens
-    .filter(item => item.categoria === 'Rodízio' && item.rodizioDias)
+    .filter(item => item.categoria === "Rodízio" && item.rodizioDias)
     .reduce((acc, item) => {
-      const chave = normalizar(item.rodizioDias);
-      if (!acc[chave]) acc[chave] = [];
-      acc[chave].push(item);
+      const dias = tratarRodizioDias(item.rodizioDias);
+
+      dias.forEach((dia) => {
+        if (!acc[dia]) acc[dia] = [];
+        acc[dia].push(item);
+      });
+
       return acc;
     }, {});
 
@@ -139,8 +189,6 @@ export default function CardapioCongolinaria() {
     <>
       <div className="min-h-screen p-4 bg-gray-50">
         {toast && <Toast toast={toast} />}
-
-        
 
         <div className="flex flex-wrap justify-center gap-2 mb-4">
           {['Penha', 'Sumaré'].map((u) => (
@@ -178,48 +226,50 @@ export default function CardapioCongolinaria() {
 
         <div className="max-w-2xl mx-auto">
 
-          {/* ⭐ RODÍZIO DO DIA — AGORA FUNCIONANDO */}
-          {rodiziosAgrupadosPorDia[diaAtualNormalizado] && (
+          {/* ⭐ RODÍZIO DO DIA */}
+          {(rodiziosAgrupadosPorDia[diaAtualNormalizado] || rodiziosAgrupadosPorDia["todos"]) && (
             <div className="mb-8 border-l-4 border-yellow-500 pl-4">
               <h2 className="text-2xl font-bold text-yellow-700 mb-2">
                 🍽️ Rodízio de {diaAtual.charAt(0).toUpperCase() + diaAtual.slice(1)}
               </h2>
 
               <div className="grid gap-4">
-                {rodiziosAgrupadosPorDia[diaAtualNormalizado].map((item) => (
-                  <div key={item.id} className="border rounded p-3 bg-white shadow">
-                    <h3 className="text-lg font-bold text-green-700">{item.titulo}</h3>
-                    <p className="text-sm text-gray-600">{item.descricao}</p>
-                    <p className="text-sm mt-1"><strong>Preço:</strong> R$ {parseFloat(item.preco).toFixed(2)}</p>
+                {(rodiziosAgrupadosPorDia[diaAtualNormalizado] || [])
+                  .concat(rodiziosAgrupadosPorDia["todos"] || [])
+                  .map((item) => (
+                    <div key={item.id} className="border rounded p-3 bg-white shadow">
+                      <h3 className="text-lg font-bold text-green-700">{item.titulo}</h3>
+                      <p className="text-sm text-gray-600">{item.descricao}</p>
+                      <p className="text-sm mt-1"><strong>Preço:</strong> R$ {parseFloat(item.preco).toFixed(2)}</p>
 
-                    {(() => {
-                      let pratos = [];
-                      try {
-                        pratos = JSON.parse(item.rodizioPratos || '[]');
-                      } catch (e) {
-                        console.warn('Erro ao parsear rodizioPratos:', e);
-                      }
+                      {(() => {
+                        let pratos = [];
+                        try {
+                          pratos = JSON.parse(item.rodizioPratos || '[]');
+                        } catch (e) {
+                          console.warn('Erro ao parsear rodizioPratos:', e);
+                        }
 
-                      return pratos.length > 0 ? (
-                        <ul className="list-disc list-inside text-sm text-gray-700 mt-2">
-                          {pratos.map((prato, idx) => (
-                            <li key={idx}>{prato}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-sm text-red-500 mt-2">Nenhum prato listado.</p>
-                      );
-                    })()}
+                        return pratos.length > 0 ? (
+                          <ul className="list-disc list-inside text-sm text-gray-700 mt-2">
+                            {pratos.map((prato, idx) => (
+                              <li key={idx}>{prato}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-sm text-red-500 mt-2">Nenhum prato listado.</p>
+                        );
+                      })()}
 
-                    {(tipoPedidoSelecionado === 'Viagem' || tipoPedidoSelecionado === 'Retirada') && (
-                      <button
-                        onClick={() => adicionarAoCarrinho(item)}
-                        className="mt-3 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm"
-                      >
-                        Pedir
-                      </button>
-                    )}
-                  </div>
+                      {(tipoPedidoSelecionado === 'Viagem' || tipoPedidoSelecionado === 'Retirada') && (
+                        <button
+                          onClick={() => adicionarAoCarrinho(item)}
+                          className="mt-3 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm"
+                        >
+                          Pedir
+                        </button>
+                      )}
+                    </div>
                 ))}
               </div>
             </div>
@@ -241,15 +291,13 @@ export default function CardapioCongolinaria() {
                 {categoriaAberta === categoria && (
                   <div className="grid gap-4 animate-fadeIn">
                     {categoriasAgrupadas[categoria].map((item) => {
-
-                      // 🗓️ TRATAMENTO DO CAMPO "dia"
                       let textoDia = '';
                       if (item.dia) {
                         if (item.dia.toLowerCase() === 'todos') {
                           textoDia = 'Todos os dias';
                         } else {
-                          const normalizado = normalizar(item.dia);
-                          textoDia = normalizado.charAt(0).toUpperCase() + normalizado.slice(1);
+                          const normalizadoDia = normalizar(item.dia);
+                          textoDia = normalizadoDia.charAt(0).toUpperCase() + normalizadoDia.slice(1);
                         }
                       }
 
