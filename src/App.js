@@ -69,6 +69,18 @@ import PedidoPendente from "./pages/Cardapio/PedidoPendente";
 import PedidoFalhou from "./pages/Cardapio/PedidoFalhou";
 import PainelAdminFrete from "./pages/Cardapio/PainelAdminFrete";
 
+// Páginas do INSTITUTO
+import HomeInstituto from "./pages/Instituto/HomeInstituto";
+import QuemSomos from "./pages/Instituto/QuemSomos";
+import Programas from "./pages/Instituto/Programas";
+import CentroCultural from "./pages/Instituto/CentroCultural";
+import Transparencia from "./pages/Instituto/Transparencia";
+import Doe from "./pages/Instituto/Doe";
+import Parcerias from "./pages/Instituto/Parcerias";
+import Noticias from "./pages/Instituto/Noticias";
+import InstitutoLayout from "./layouts/InstitutoLayout";
+import InscricoesIdioma from "./pages/Instituto/InscricoesIdioma";
+
 
 
 function App() {
@@ -88,7 +100,9 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
-      <NavMenu />
+      {/* Mostrar NavMenu somente fora do Instituto */}
+{!window.location.pathname.startsWith("/instituto") && <NavMenu />}
+
 
       <main className="flex-grow">
 
@@ -105,14 +119,14 @@ function App() {
           <Route path="/avaliar-receita" element={<AvaliarReceita />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/sacola" element={<Sacola />} />
-          <Route path="/cardapio-congelados" element ={<CardapioCOP30 />} />
+          <Route path="/cardapio-congelados" element={<CardapioCOP30 />} />
           <Route path="/prato/:id" element={<DetalhePratoCOP30 />} />
-          <Route path="/receitas" element={<IAReceitas/>}/>
-          <Route path="/checkout" element={<Checkout/>}/>
+          <Route path="/receitas" element={<IAReceitas />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/pedido-concluido" element={<PedidoConcluido />} />
           <Route path="/pedido-pendente" element={<PedidoPendente />} />
           <Route path="/pedido-falhou" element={<PedidoFalhou />} />
-         
+
 
 
           {/* ADMIN GERAL */}
@@ -124,13 +138,13 @@ function App() {
               </Protected>
             }
           />
-           <Route path="/admin/popup" element={
-               <Protected>
-            <PainelPopupAdmin />
+          <Route path="/admin/popup" element={
+            <Protected>
+              <PainelPopupAdmin />
             </Protected>
-            
-            } />
-      <Route path="/admin/pratos-populares" element = { <Protected><PainelPratosPopulares/></Protected>}/>
+
+          } />
+          <Route path="/admin/pratos-populares" element={<Protected><PainelPratosPopulares /></Protected>} />
           {/* PAINEL ADMIN CARDÁPIO */}
           <Route
             path="/admin/cardapio"
@@ -159,7 +173,7 @@ function App() {
               </Protected>
             }
           />
-<Route path="/admin/painel-hero-admin" element={<Protected>< PainelHeroAdmin/></Protected>}/>
+          <Route path="/admin/painel-hero-admin" element={<Protected>< PainelHeroAdmin /></Protected>} />
           <Route
             path="/admin/painel-garcom-cop30"
             element={
@@ -186,19 +200,50 @@ function App() {
               </Protected>
             }
           />
- <Route path="/admin/frete" element={
-  <Protected>
-  <PainelAdminFrete />
-  </Protected>
-  
-  } />
+          <Route path="/admin/frete" element={
+            <Protected>
+              <PainelAdminFrete />
+            </Protected>
+
+          } />
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
 
+
+
+        {/* 🌿 ROTAS DO INSTITUTO – TODAS DENTRO DO MESMO LAYOUT */}
+        <Route path="/instituto" element={<InstitutoLayout />}>
+          {/* /instituto -> HomeInstituto */}
+          <Route index element={<HomeInstituto />} />
+
+          {/* /instituto/quem-somos */}
+          <Route path="quem-somos" element={<QuemSomos />} />
+
+          {/* /instituto/programas */}
+          <Route path="programas" element={<Programas />} />
+
+          {/* /instituto/centro-cultural */}
+          <Route path="centro-cultural" element={<CentroCultural />} />
+
+          {/* /instituto/transparencia */}
+          <Route path="transparencia" element={<Transparencia />} />
+
+          {/* /instituto/doar */}
+          <Route path="doar" element={<Doe />} />
+
+          {/* /instituto/parcerias */}
+          <Route path="parcerias" element={<Parcerias />} />
+
+          {/* /instituto/noticias */}
+          <Route path="noticias" element={<Noticias />} />
+          <Route path="/instituto/idiomas" element={<InscricoesIdioma />} />
+
+        </Route>
+
         </Routes>
       </main>
-
-      <Footer />
+{/* Footer só aparece fora do Instituto */}
+{!window.location.pathname.startsWith("/instituto") && <Footer />}
     </div>
   );
 }
