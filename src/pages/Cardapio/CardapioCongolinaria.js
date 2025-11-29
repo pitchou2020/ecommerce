@@ -5,6 +5,8 @@ import ResumoPedido from './ResumoPedido';
 import { useDispatch } from 'react-redux';
 import { adicionarItem, limparCarrinho } from '../../redux/cartReducer';
 import SugestaoAfroveg from "./SugestaoAfroveg";
+import PromoPopup from "./../Popup/PromoPopup";
+
 
 export default function CardapioCongolinaria() {
   const [itens, setItens] = useState([]);
@@ -187,6 +189,7 @@ export default function CardapioCongolinaria() {
 
   return (
     <>
+    <PromoPopup />
       <div className="min-h-screen p-4 bg-gray-50">
         {toast && <Toast toast={toast} />}
 

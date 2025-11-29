@@ -27,6 +27,16 @@ export const MenuData = [
     icon: <Utensils size={18} />
   },
   {
+    title: "Frete",
+    url : "/admin/frete",
+    icon: <Utensils size={18} />
+  },
+  {
+    title: "Popup",
+    url : "/admin/popup",
+    icon: <Utensils size={18} />
+  },
+  {
     title: 'Configurações',
     url: '/admin/configuracoes',
     icon: <Settings size={18} />

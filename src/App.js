@@ -25,6 +25,7 @@ import FecharPedidoGarcom from "./pages/Cardapio/FecharPedidoGarcom";
 import PainelCaixaCOP30 from "./pages/Cardapio/PainelCaixaCOP30";
 import PainelAdminCop30 from "./pages/Cardapio/PainelAdminCop30";
 import PainelHeroAdmin from "./pages/Home/PainelHeroAdmin";
+import PainelPopupAdmin from "./pages/Popup/PainelPopupAdmin"
 
 
 import Checkout from "./pages/Cardapio/Checkout";
@@ -66,6 +67,7 @@ import IAReceitas from "./pages/Receita/IAReceitas";
 import PedidoConcluido from "./pages/Cardapio/PedidoConcluido";
 import PedidoPendente from "./pages/Cardapio/PedidoPendente";
 import PedidoFalhou from "./pages/Cardapio/PedidoFalhou";
+import PainelAdminFrete from "./pages/Cardapio/PainelAdminFrete";
 
 
 
@@ -110,6 +112,8 @@ function App() {
           <Route path="/pedido-concluido" element={<PedidoConcluido />} />
           <Route path="/pedido-pendente" element={<PedidoPendente />} />
           <Route path="/pedido-falhou" element={<PedidoFalhou />} />
+         
+
 
           {/* ADMIN GERAL */}
           <Route
@@ -120,6 +124,12 @@ function App() {
               </Protected>
             }
           />
+           <Route path="/admin/popup" element={
+               <Protected>
+            <PainelPopupAdmin />
+            </Protected>
+            
+            } />
       <Route path="/admin/pratos-populares" element = { <Protected><PainelPratosPopulares/></Protected>}/>
           {/* PAINEL ADMIN CARDÁPIO */}
           <Route
@@ -176,7 +186,12 @@ function App() {
               </Protected>
             }
           />
-
+ <Route path="/admin/frete" element={
+  <Protected>
+  <PainelAdminFrete />
+  </Protected>
+  
+  } />
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
 
