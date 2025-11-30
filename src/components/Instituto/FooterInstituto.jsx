@@ -9,7 +9,7 @@ export default function FooterInstituto() {
         {/* COLUNA 1 */}
         <div>
           <img
-            src="/img/instituto/logo-instituto.png"
+            src="/images/logo-instituto1.png"
             className="h-12 mb-3"
             alt="Instituto Congolinaria"
           />

@@ -2,6 +2,10 @@ import React from "react";
 
 export default function Programas() {
   const eixos = [
+    /* ---------------------------------------------------
+       CULTURA • EDUCAÇÃO • GASTRONOMIA • SUSTENTABILIDADE
+    ---------------------------------------------------- */
+
     {
       titulo: "Cultura e Memória",
       descricao:
@@ -11,59 +15,76 @@ export default function Programas() {
     {
       titulo: "Educação e Formação",
       descricao:
-        "Cursos de culinária AfroVeg, formação profissional, oficinas de empreendedorismo, manipulação de alimentos e bolsas para jovens, mulheres e imigrantes.",
+        "Cursos de culinária AfroVeg, formação profissional, oficinas de empreendedorismo, manipulação de alimentos e programas de entrada no mercado de trabalho.",
       cor: "from-[#C9A23F] to-[#b08c35]",
     },
     {
-      titulo: "Gastronomia Solidária",
+      titulo: "Gastronomia Social e Criativa",
       descricao:
-        "Refeições comunitárias, formação de cozinheiras, combate à fome, distribuição de alimentos, cozinhas solidárias e programas de geração de renda.",
+        "Uso da gastronomia como instrumento de inclusão, economia criativa e geração de oportunidades, apoiando cozinheiras, empreendedores e jovens talentos.",
       cor: "from-[#4E2A1E] to-[#3A1E15]",
     },
     {
       titulo: "Sustentabilidade",
       descricao:
-        "Hortas urbanas, compostagem, economia criativa, reciclagem, oficinas de aproveitamento integral e educação ambiental.",
+        "Hortas urbanas, oficinas de compostagem, reciclagem, economia circular e educação ambiental voltada à comunidade.",
       cor: "from-[#0F6D40] to-[#0A4D30]",
     },
 
-    /* -------------------- NOVOS PROGRAMAS (Integração) -------------------- */
+    /* ---------------------------------------------------
+       ÁREA DE INTEGRAÇÃO BRASIL–ÁFRICA E MIGRAÇÃO
+    ---------------------------------------------------- */
 
     {
       titulo: "Reconhecer para Integrar — Revalidação de Diplomas",
       descricao:
-        "Apoio completo para validação e equivalência de diplomas estrangeiros no Brasil, incluindo montagem de dossiês, orientação para universidades públicas, e acesso a tradutores juramentados parceiros.",
+        "Orientação completa e humanizada sobre equivalência de diplomas estrangeiros, montagem de dossiê para universidades públicas e apoio no acesso a tradutores juramentados parceiros.",
       cor: "from-[#144D3A] to-[#1A5C46]",
     },
     {
-      titulo: "Futuro Academicamente Livre — Bolsas e Universidades",
+      titulo: "Futuro Acadêmico — Bolsas e Universidades",
       descricao:
-        "Acompanhamento educacional para ingresso no ensino superior, bolsas sociais, PROUNI, ENEM, orientação acadêmica e divulgação de parcerias Brasil–África para estudantes estrangeiros.",
+        "Acompanhamento para ingresso no ensino superior, acesso a bolsas, PROUNI, ENEM, PEC-G/PEC-PG e oportunidades de cooperação acadêmica entre Brasil e países africanos.",
       cor: "from-[#C9A23F] to-[#E2C35C]",
     },
     {
-      titulo: "DocumentaBR — Naturalização, Refúgio e Migração",
+      titulo: "DocumentaBR — Imigração e Regularização",
       descricao:
-        "Apoio em processos de pedido de refúgio, naturalização, CRNM, residência por trabalho ou estudo, agendamentos, orientação jurídica humanizada e mediação comunitária.",
+        "Orientação sobre naturalização, residência, CRNM, processos migratórios, pedidos de refúgio e documentação necessária para uma vida regularizada no Brasil.",
       cor: "from-[#4E2A1E] to-[#2D180F]",
     },
     {
-      titulo: "Pontes Brasil–África — Parcerias Internacionais",
+      titulo: "Pontes Brasil–África — Parcerias e Diplomacia Cultural",
       descricao:
-        "Divulgação e encaminhamento para programas bilaterais Brasil–África, editais educacionais, bolsas PEC-G e PEC-PG, acordos do Itamaraty, programas da CAPES e universidades federais.",
+        "Construção de redes internacionais, apoio a investidores estrangeiros, conexão com universidades, ONGs e instituições públicas para cooperação Brasil–África.",
       cor: "from-[#0F6D40] to-[#0A4F32]",
     },
+
+    /* ---------------------------------------------------
+       NOVO BLOCO: LÍNGUAS • INTÉRPRETES • NEGÓCIOS
+    ---------------------------------------------------- */
+
     {
-      titulo: "Português para Imigrantes e Refugiados",
+      titulo: "Interpretação e Linguagem — Francês • Inglês • Espanhol",
       descricao:
-        "Aulas gratuitas de português com voluntários brasileiros, reforço escolar, alfabetização cultural, conversação e cursos voltados ao mercado de trabalho e documentos oficiais.",
+        "Disponibilização de intérpretes multilíngues para empresários estrangeiros, estudantes, pesquisadores, investidores e imigrantes que necessitam de mediação linguística em atendimentos, visitas técnicas, entrevistas e processos oficiais.",
       cor: "from-[#144D3A] to-[#0E2F24]",
     },
     {
-      titulo: "Acolhimento Social e Comunitário",
+      titulo: "Português para Imigrantes",
       descricao:
-        "Apoio psicológico voluntário, mediação de conflitos, fortalecimento de famílias migrantes, orientação sobre direitos sociais e integração humanizada no território brasileiro.",
+        "Cursos gratuitos com voluntários brasileiros, reforço cultural, alfabetização, conversação e preparação para entrevistas, documentos e mercado de trabalho.",
       cor: "from-[#C9A23F] to-[#b08c35]",
+    },
+
+    /* ---------------------------------------------------
+       APOIO COMUNITÁRIO SEM ASSISTENCIALISMO
+    ---------------------------------------------------- */
+    {
+      titulo: "Acolhimento Social e Mediação Comunitária",
+      descricao:
+        "Mediação de conflitos, apoio emocional comunitário voluntário, orientação sobre direitos, fortalecimento familiar e integrações em redes públicas sem caráter assistencialista.",
+      cor: "from-[#4E2A1E] to-[#2D180F]",
     },
   ];
 
@@ -71,14 +92,15 @@ export default function Programas() {
     <div className="bg-[#F7F0E8] min-h-screen py-16 px-6">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl lg:text-4xl font-bold text-[#144D3A] mb-10">
-          Programas e Projetos do Instituto Congolinaria
+          Programas e Projetos do Instituto Congolinária
         </h1>
 
-        <p className="text-lg text-gray-700 mb-12 max-w-3xl">
-          Nossos programas unem cultura, educação, acolhimento e desenvolvimento
-          social, fortalecendo comunidades afro-brasileiras, migrantes e
-          refugiadas através da gastronomia, memória, formação profissional,
-          acesso à educação e integração no Brasil.
+        <p className="text-lg text-gray-700 mb-12 max-w-3xl leading-relaxed">
+          O Instituto Congolinária desenvolve ações que unem cultura, educação,
+          integração linguística, orientação migratória, formação profissional e
+          cooperação Brasil–África. O objetivo é promover autonomia, dignidade e
+          oportunidades para comunidades afro-diaspóricas, imigrantes,
+          empreendedores e estudantes internacionais.
         </p>
 
         {/* GRID DE PROGRAMAS */}
@@ -88,9 +110,7 @@ export default function Programas() {
               key={index}
               className="rounded-xl shadow-md overflow-hidden bg-white border border-gray-200 hover:shadow-xl transition"
             >
-              <div
-                className={`h-32 bg-gradient-to-r ${item.cor} opacity-90`}
-              ></div>
+              <div className={`h-32 bg-gradient-to-r ${item.cor} opacity-90`} />
               <div className="p-6">
                 <h2 className="text-xl font-bold text-[#144D3A] mb-3">
                   {item.titulo}

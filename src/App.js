@@ -80,6 +80,13 @@ import Parcerias from "./pages/Instituto/Parcerias";
 import Noticias from "./pages/Instituto/Noticias";
 import InstitutoLayout from "./layouts/InstitutoLayout";
 import InscricoesIdioma from "./pages/Instituto/InscricoesIdioma";
+import CadastroImigrante from "./pages/Instituto/CadastroImigrante";
+import CadastroVoluntario from "./pages/Instituto/CadastroVoluntario";
+import PainelImigrantes from "./pages/Instituto/PainelImigrantes";
+import PainelVoluntarios from "./pages/Instituto/PainelVoluntarios";
+import Interpretacao from "./pages/Instituto/Interpretacao";
+import InvestirNoBrasil from "./pages/Instituto/InvestirNoBrasil";
+
 
 
 
@@ -206,6 +213,26 @@ function App() {
             </Protected>
 
           } />
+
+          <Route
+  path="/admin/imigrantes"
+  element={
+    <Protected>
+      <PainelImigrantes />
+    </Protected>
+  }
+/>
+
+<Route
+  path="/admin/voluntarios"
+  element={
+    <Protected>
+      <PainelVoluntarios />
+    </Protected>
+  }
+/>
+
+
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
 
@@ -237,6 +264,10 @@ function App() {
           {/* /instituto/noticias */}
           <Route path="noticias" element={<Noticias />} />
           <Route path="/instituto/idiomas" element={<InscricoesIdioma />} />
+          <Route path="imigrante" element={<CadastroImigrante />} />
+  <Route path="voluntario" element={<CadastroVoluntario />} />
+  <Route path="interpretacao" element={<Interpretacao />} />
+  <Route path="investir-no-brasil" element={<InvestirNoBrasil />} />
 
         </Route>
 
