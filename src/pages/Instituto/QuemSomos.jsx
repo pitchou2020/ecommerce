@@ -10,7 +10,7 @@ export default function QuemSomos() {
         </h1>
 
         <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-4xl">
-          O <strong>Instituto Congolinaria</strong> é uma organização social
+          O <strong>Instituto Conglobal</strong> é uma organização social
           dedicada à valorização da cultura afro-brasileira e congolesa,
           promoção da educação, defesa dos direitos humanos e apoio à
           integração de imigrantes e refugiados no Brasil.

@@ -84,7 +84,7 @@ export default function CadastroImigrante() {
           Cadastro de Imigrantes e Refugiados
         </h1>
         <p className="text-gray-700 mb-6">
-          Preencha seus dados para que o Instituto Congolinária possa oferecer apoio
+          Preencha seus dados para que o Instituto Conglobal possa oferecer apoio
           em documentação, aulas de português, integração social e outras necessidades.
         </p>
 

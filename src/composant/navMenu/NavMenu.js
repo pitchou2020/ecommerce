@@ -45,6 +45,7 @@ export default function NavMenu() {
           <Link to="/sobre" className="hover:text-yellow-600">Sobre</Link>
           <Link to="/blog" className="hover:text-yellow-600">Blog</Link>
            <Link to="/instituto" className="hover:text-yellow-600">Instituto</Link>
+            <Link to="/hortifruti" className="hover:text-yellow-600">Hortifruti</Link>
         </nav>
 
         {/* Ícones */}
@@ -106,6 +107,7 @@ export default function NavMenu() {
             <Link to="/sobre" onClick={() => setMenuOpen(false)}>Sobre</Link>
             <Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
              <Link to="/instituto" onClick={() => setMenuOpen(false)}>Instituto</Link>
+             <Link to="/hortifruti" onClick={() => setMenuOpen(false)}>Hortifruti</Link>
           </motion.nav>
         )}
       </AnimatePresence>

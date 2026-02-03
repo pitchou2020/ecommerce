@@ -41,7 +41,7 @@ export default function HeaderInstituto() {
         <Link to="/instituto" className="flex items-center gap-3">
           <img
             src="/images/logo-instituto1.png"
-            alt="Instituto Congolinaria"
+            alt="Instituto Conglobal"
             className={`object-contain transition-all duration-300 ${
               scrolled ? "h-9" : "h-11"
             }`}

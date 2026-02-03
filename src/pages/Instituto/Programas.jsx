@@ -92,11 +92,10 @@ export default function Programas() {
     <div className="bg-[#F7F0E8] min-h-screen py-16 px-6">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl lg:text-4xl font-bold text-[#144D3A] mb-10">
-          Programas e Projetos do Instituto Congolinária
-        </h1>
+          Programas e Projetos do Instituto Conglobal        </h1>
 
         <p className="text-lg text-gray-700 mb-12 max-w-3xl leading-relaxed">
-          O Instituto Congolinária desenvolve ações que unem cultura, educação,
+          O Instituto Conglobal desenvolve ações que unem cultura, educação,
           integração linguística, orientação migratória, formação profissional e
           cooperação Brasil–África. O objetivo é promover autonomia, dignidade e
           oportunidades para comunidades afro-diaspóricas, imigrantes,

@@ -76,7 +76,7 @@ export default function CadastroVoluntario() {
           Cadastro de Voluntários
         </h1>
         <p className="text-gray-700 mb-6">
-          Se você deseja apoiar o Instituto Congolinária com seu tempo, conhecimento
+          Se você deseja apoiar o Instituto Conglobal com seu tempo, conhecimento
           ou recursos, preencha o formulário abaixo. Entraremos em contato para
           alinhar a melhor forma de atuação.
         </p>

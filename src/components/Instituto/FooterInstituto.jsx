@@ -11,7 +11,7 @@ export default function FooterInstituto() {
           <img
             src="/images/logo-instituto1.png"
             className="h-12 mb-3"
-            alt="Instituto Congolinaria"
+            alt="Instituto Conglobal"
           />
           <p className="text-sm text-[#E5E7EB]">
             Alimentar o corpo, celebrar a cultura, fortalecer o povo.
@@ -42,14 +42,14 @@ export default function FooterInstituto() {
             Contato
           </h3>
           <p className="text-sm">
-            Email: <span className="text-[#C9A23F]">instituto@congolinaria.com.br</span>
+            Email: <span className="text-[#C9A23F]">instituto@Conglobal.com.br</span>
           </p>
           <p className="text-sm mt-1">Telefone/WhatsApp: (11) 90000-0000</p>
         </div>
       </div>
 
       <div className="bg-[#0A2A1F] text-center py-3 text-xs text-[#C9A23F]">
-        © {new Date().getFullYear()} Instituto Congolinaria — Todos os direitos reservados.
+        © {new Date().getFullYear()} Instituto Conglobal — Todos os direitos reservados.
       </div>
     </footer>
   );

@@ -76,7 +76,7 @@ export default function PainelImigrantes() {
               Painel de Imigrantes
             </h1>
             <p className="text-gray-600 text-sm">
-              Visualize os cadastros recebidos pelo Instituto Congolinária.
+              Visualize os cadastros recebidos pelo Instituto Conglobal.
             </p>
           </div>
 

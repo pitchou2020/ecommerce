@@ -24,7 +24,7 @@ export default function HomeInstituto() {
       </h1>
 
       <p className="text-lg text-gray-200 mb-8 max-w-xl">
-        O Instituto Congolinaria promove educação, memória, inclusão social
+        O Instituto Conglobal promove educação, memória, inclusão social
         e acolhimento de imigrantes e refugiados, unindo cultura afro-brasileira
         e congolesa, dignidade humana e integração social.
       </p>
@@ -54,7 +54,7 @@ export default function HomeInstituto() {
       <div className="bg-gradient-to-br from-[#144D3A] via-[#0f3a2a] to-[#07261c] p-6 rounded-2xl shadow-xl">
         <img
           src="/images/Logo_Instituto_Congolinaria_branca.png"
-          alt="Instituto Congolinaria"
+          alt="Instituto Conglobal"
           className="rounded-xl shadow-xl w-[92%] mx-auto transition-transform duration-500 hover:scale-[1.06]"
         />
       </div>
@@ -141,7 +141,7 @@ export default function HomeInstituto() {
 
       {/* CTA DOAÇÃO */}
       <section className="bg-[#144D3A] text-white py-16 text-center px-6">
-        <h3 className="text-2xl font-bold mb-4">Apoie o Instituto Congolinaria</h3>
+        <h3 className="text-2xl font-bold mb-4">Apoie o Instituto Conglobal</h3>
         <p className="text-gray-200 max-w-2xl mx-auto mb-6">
           Sua doação ajuda a manter projetos culturais, assistência documental,
           aulas de português e programas que transformam vidas.

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 import Toast from '../../composant/Toast';
 import axios from 'axios';
 import ResumoPedido from './ResumoPedido';
@@ -6,9 +7,12 @@ import { useDispatch } from 'react-redux';
 import { adicionarItem, limparCarrinho } from '../../redux/cartReducer';
 import SugestaoAfroveg from "./SugestaoAfroveg";
 import PromoPopup from "./../Popup/PromoPopup";
+import { FaTruck, FaShoppingBag, FaLeaf } from "react-icons/fa";
 
 
 export default function CardapioCongolinaria() {
+    const { id } = useParams();
+  const navigate = useNavigate();
   const [itens, setItens] = useState([]);
   const [toast, setToast] = useState(null);
   const [mostrarResumoCarrinho, setMostrarResumoCarrinho] = useState(false);
@@ -24,7 +28,16 @@ export default function CardapioCongolinaria() {
   const [categoriaAberta, setCategoriaAberta] = useState('');
   const [termoBusca, setTermoBusca] = useState('');
 
-  const dispatch = useDispatch();
+  
+
+   const dispatch = useDispatch();
+  
+    const [prato, setPrato] = useState(null);
+    const [relacionados, setRelacionados] = useState([]);
+    const [cep, setCep] = useState("");
+    const [frete, setFrete] = useState(null);
+    const [quantidade, setQuantidade] = useState(1);
+    const [mensagem, setMensagem] = useState("");
 
   // NORMALIZAR STRINGS (sem acentos)
   const normalizar = (str) =>
@@ -32,6 +45,28 @@ export default function CardapioCongolinaria() {
       ?.normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase();
+
+
+       /* ---------------------------------------------------
+     CARREGAR PRATO + RELACIONADOS
+  --------------------------------------------------- */
+  useEffect(() => {
+    axios
+      .get("https://congolinaria.com.br/api/cardapio_cop30.php?idioma=pt")
+      .then((res) => {
+        const dados = res.data;
+        const encontrado = dados.find((p) => String(p.id) === id);
+        setPrato(encontrado);
+
+        const outros = dados
+          .filter((p) => String(p.id) !== id)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 3);
+
+        setRelacionados(outros);
+      })
+      .catch(console.error);
+  }, [id]);
 
   // BUSCAR ITENS DO CARDÁPIO
   useEffect(() => {
@@ -349,6 +384,40 @@ export default function CardapioCongolinaria() {
             onVoltar={() => setMostrarResumoCarrinho(false)}
           />
         )}
+
+        {/* RELACIONADOS */}
+              {relacionados.length > 0 && (
+                <div className="mt-12 border-t pt-8">
+                  <h2 className="text-2xl font-bold text-green-800 mb-6 flex items-center gap-2">
+                    <FaLeaf className="text-green-700" /> Produtos Congelados
+                  </h2>
+                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {relacionados.map((p) => (
+                      <div
+                        key={p.id}
+                        onClick={() => navigate(`/prato/${p.id}`)}
+                        className="cursor-pointer border rounded-xl shadow-sm hover:shadow-md transition bg-white"
+                      >
+                        <img
+                          src={`https://congolinaria.com.br/${p.imagem}`}
+                          alt={p.nome}
+                          className="w-full h-48 object-cover rounded-t-xl"
+                        />
+                        <div className="p-4">
+                          <h3 className="font-semibold text-gray-800">{p.nome}</h3>
+                          <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                            {p.descricao}
+                          </p>
+                          <p className="text-green-700 font-bold">
+                            R$ {parseFloat(p.preco).toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+        
       </div>
     </>
   );

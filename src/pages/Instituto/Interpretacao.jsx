@@ -63,7 +63,7 @@ export default function Interpretacao() {
           Solicitação de Intérprete
         </h1>
         <p className="text-gray-700 mb-8">
-          O Instituto Congolinária disponibiliza intérpretes de{" "}
+          O Instituto Conglobal disponibiliza intérpretes de{" "}
           <strong>francês, inglês e espanhol</strong> para contextos acadêmicos,
           empresariais, culturais, migratórios e institucionais. Preencha o
           formulário abaixo para que nossa equipe possa avaliar e retornar com

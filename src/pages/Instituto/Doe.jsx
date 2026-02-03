@@ -6,8 +6,7 @@ export default function Doe() {
       <div className="max-w-4xl mx-auto">
 
         <h1 className="text-3xl lg:text-4xl font-bold text-[#144D3A] mb-8 text-center">
-          Doe para o Instituto Congolinaria
-        </h1>
+          Doe para o Instituto Conglobal        </h1>
 
         <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-10">
           Sua contribuição fortalece aulas de português, apoio a imigrantes,
@@ -26,7 +25,7 @@ export default function Doe() {
             className="mx-auto w-56 h-56 rounded-lg shadow"
           />
 
-          <p className="mt-4 text-gray-700">Chave PIX: instituto@congolinaria.com.br</p>
+          <p className="mt-4 text-gray-700">Chave PIX: instituto@institutoconglobal.com.br</p>
         </div>
 
         {/* FORMULÁRIO */}

@@ -21,7 +21,7 @@ export default function Transparencia() {
             Prestação de contas em construção
           </h2>
           <p className="mt-4 text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            O Instituto Congolinaria está em fase inicial de estruturação e, por isso, 
+            O Instituto Conglobal está em fase inicial de estruturação e, por isso, 
             ainda não possui relatórios financeiros ou atividades consolidadas. 
             No entanto, assumimos desde já o compromisso público de transparência, 
             governança ética e responsabilidade na gestão de todos os recursos recebidos.
@@ -58,7 +58,7 @@ export default function Transparencia() {
             </div>
             <h3 className="text-lg font-semibold text-[#144D3A]">Estatuto Social</h3>
             <p className="mt-2 text-gray-700 text-sm">
-              Documento oficial que rege as diretrizes e finalidades do Instituto Congolinaria.
+              Documento oficial que rege as diretrizes e finalidades do Instituto Conglobal.
             </p>
             <a
               href="/pdf/estatuto-instituto.pdf"

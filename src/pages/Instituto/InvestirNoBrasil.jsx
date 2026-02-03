@@ -63,7 +63,7 @@ export default function InvestirNoBrasil() {
             Investidores e Empresas Estrangeiras
           </h1>
           <p className="text-gray-700 mb-4 leading-relaxed">
-            O Instituto Congolinária atua como ponte entre o Brasil e países da
+            O Instituto Conglobal atua como ponte entre o Brasil e países da
             África e diáspora, conectando cultura, gastronomia, educação e
             oportunidades econômicas. Nosso objetivo é facilitar a integração de
             empresários, organizações e investidores estrangeiros interessados

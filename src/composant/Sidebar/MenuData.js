@@ -21,6 +21,11 @@ export const MenuData = [
     url: '/admin/painel-admin-cop30',
     icon: <Utensils size={18} />
   },
+    {
+    title: 'Hortifruti',
+    url: '/admin/painel-admin-hortifruti',
+    icon: <Utensils size={18} />
+  },
   {
     title: "Hero Home",
     url : "/admin/painel-hero-admin",

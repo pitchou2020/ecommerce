@@ -13,7 +13,7 @@ export default function InscricoesIdioma() {
 
         <p className="text-lg text-gray-700 mb-10">
           Preencha o formulário abaixo para participar das aulas de português
-          ou para atuar como voluntário no Instituto Congolinaria.
+          ou para atuar como voluntário no Instituto Conglobal.
         </p>
 
         {/* Seletor */}

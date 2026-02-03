@@ -11,6 +11,7 @@ import ThemeContextProvider, { ThemeContext } from "./Context/ThemeContext";
 import Home from "./pages/Home/HomePageTailwind";
 import Cardapio from "./pages/Cardapio/CardapioCongolinaria";
 import AdminCardapio from "./pages/Cardapio/PainelCardapioAdmin";
+import PainelAdminHortifruti from "./pages/Cardapio/PainelAdminHortifruti"
 import Cadastrar from "./pages/Cadastrar";
 import Receita from "./pages/Receita/IAReceitas";
 import RecettesCategory from "./pages/RecettesCategory/RecettesCategory";
@@ -70,6 +71,7 @@ import PedidoFalhou from "./pages/Cardapio/PedidoFalhou";
 import PainelAdminFrete from "./pages/Cardapio/PainelAdminFrete";
 
 // Páginas do INSTITUTO
+import InstitutoLayout from "./layouts/InstitutoLayout";
 import HomeInstituto from "./pages/Instituto/HomeInstituto";
 import QuemSomos from "./pages/Instituto/QuemSomos";
 import Programas from "./pages/Instituto/Programas";
@@ -78,7 +80,7 @@ import Transparencia from "./pages/Instituto/Transparencia";
 import Doe from "./pages/Instituto/Doe";
 import Parcerias from "./pages/Instituto/Parcerias";
 import Noticias from "./pages/Instituto/Noticias";
-import InstitutoLayout from "./layouts/InstitutoLayout";
+
 import InscricoesIdioma from "./pages/Instituto/InscricoesIdioma";
 import CadastroImigrante from "./pages/Instituto/CadastroImigrante";
 import CadastroVoluntario from "./pages/Instituto/CadastroVoluntario";
@@ -87,9 +89,18 @@ import PainelVoluntarios from "./pages/Instituto/PainelVoluntarios";
 import Interpretacao from "./pages/Instituto/Interpretacao";
 import InvestirNoBrasil from "./pages/Instituto/InvestirNoBrasil";
 
+import AdminReceitaAutoral from "./pages/Receita/AdminReceitaAutoral";
+import AdminCategorias from "./pages/Receita/AdminCategorias";
 
+// Etiquetas 
 
+import Etiquetas from "./pages/Etiquetas/Etiquetas";
 
+//hortifruti 
+
+import Hortifruti from "./pages/Cardapio/Hortifruti";
+import HortifrutiLayout from "./layouts/HortifrutiLayout";
+import DetalheProdutoHortifruti from './pages/Cardapio/DetalheProdutoHortifruti';
 function App() {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes);
@@ -108,7 +119,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
       {/* Mostrar NavMenu somente fora do Instituto */}
-{!window.location.pathname.startsWith("/instituto") && <NavMenu />}
+      {!window.location.pathname.startsWith("/instituto") && <NavMenu />}
 
 
       <main className="flex-grow">
@@ -133,6 +144,11 @@ function App() {
           <Route path="/pedido-concluido" element={<PedidoConcluido />} />
           <Route path="/pedido-pendente" element={<PedidoPendente />} />
           <Route path="/pedido-falhou" element={<PedidoFalhou />} />
+          <Route path="/admin/receitas" element={<AdminReceitaAutoral />} />
+          <Route path="/admin/categorias" element={<AdminCategorias />} />
+
+     
+
 
 
 
@@ -168,6 +184,15 @@ function App() {
             element={
               <Protected>
                 <PainelAdminCop30 />
+              </Protected>
+            }
+          />
+
+           <Route
+            path="/admin/painel-admin-hortifruti"
+            element={
+              <Protected>
+                <PainelAdminHortifruti />
               </Protected>
             }
           />
@@ -215,66 +240,73 @@ function App() {
           } />
 
           <Route
-  path="/admin/imigrantes"
-  element={
-    <Protected>
-      <PainelImigrantes />
-    </Protected>
-  }
-/>
+            path="/admin/imigrantes"
+            element={
+              <Protected>
+                <PainelImigrantes />
+              </Protected>
+            }
+          />
 
-<Route
-  path="/admin/voluntarios"
-  element={
-    <Protected>
-      <PainelVoluntarios />
-    </Protected>
-  }
-/>
+          <Route
+            path="/admin/voluntarios"
+            element={
+              <Protected>
+                <PainelVoluntarios />
+              </Protected>
+            }
+          />
 
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
 
+{/* ROTAS HORTIFRUTI – TODAS DENTRO DO MESMO LAYOUT */}
+
+<Route path="/hortifruti" element={<HortifrutiLayout />} >
+  <Route index element={<Hortifruti />} />
+  <Route path="produto/:id" element={<DetalheProdutoHortifruti />} />
+</Route>
 
 
-        {/* 🌿 ROTAS DO INSTITUTO – TODAS DENTRO DO MESMO LAYOUT */}
-        <Route path="/instituto" element={<InstitutoLayout />}>
-          {/* /instituto -> HomeInstituto */}
-          <Route index element={<HomeInstituto />} />
+          {/* 🌿 ROTAS DO INSTITUTO – TODAS DENTRO DO MESMO LAYOUT */}
+          <Route path="/instituto" element={<InstitutoLayout />}>
+            {/* /instituto -> HomeInstituto */}
+            <Route index element={<HomeInstituto />} />
 
-          {/* /instituto/quem-somos */}
-          <Route path="quem-somos" element={<QuemSomos />} />
+            {/* /instituto/quem-somos */}
+            <Route path="quem-somos" element={<QuemSomos />} />
 
-          {/* /instituto/programas */}
-          <Route path="programas" element={<Programas />} />
+            {/* /instituto/programas */}
+            <Route path="programas" element={<Programas />} />
 
-          {/* /instituto/centro-cultural */}
-          <Route path="centro-cultural" element={<CentroCultural />} />
+            {/* /instituto/centro-cultural */}
+            <Route path="centro-cultural" element={<CentroCultural />} />
 
-          {/* /instituto/transparencia */}
-          <Route path="transparencia" element={<Transparencia />} />
+            {/* /instituto/transparencia */}
+            <Route path="transparencia" element={<Transparencia />} />
 
-          {/* /instituto/doar */}
-          <Route path="doar" element={<Doe />} />
+            {/* /instituto/doar */}
+            <Route path="doar" element={<Doe />} />
 
-          {/* /instituto/parcerias */}
-          <Route path="parcerias" element={<Parcerias />} />
+            {/* /instituto/parcerias */}
+            <Route path="parcerias" element={<Parcerias />} />
 
-          {/* /instituto/noticias */}
-          <Route path="noticias" element={<Noticias />} />
-          <Route path="/instituto/idiomas" element={<InscricoesIdioma />} />
-          <Route path="imigrante" element={<CadastroImigrante />} />
-  <Route path="voluntario" element={<CadastroVoluntario />} />
-  <Route path="interpretacao" element={<Interpretacao />} />
-  <Route path="investir-no-brasil" element={<InvestirNoBrasil />} />
+            {/* /instituto/noticias */}
+            <Route path="noticias" element={<Noticias />} />
+            <Route path="/instituto/idiomas" element={<InscricoesIdioma />} />
+            <Route path="imigrante" element={<CadastroImigrante />} />
+            <Route path="voluntario" element={<CadastroVoluntario />} />
+            <Route path="interpretacao" element={<Interpretacao />} />
+            <Route path="investir-no-brasil" element={<InvestirNoBrasil />} />
 
-        </Route>
+          </Route>
+<Route path="/etiquetas" element={<Etiquetas />} />
 
         </Routes>
       </main>
-{/* Footer só aparece fora do Instituto */}
-{!window.location.pathname.startsWith("/instituto") && <Footer />}
+      {/* Footer só aparece fora do Instituto */}
+      {!window.location.pathname.startsWith("/instituto")|| !window.location.pathname.startsWith("/hortifruti") && <Footer />}
     </div>
   );
 }

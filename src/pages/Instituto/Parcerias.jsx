@@ -6,8 +6,7 @@ export default function Parcerias() {
       <div className="max-w-5xl mx-auto">
 
         <h1 className="text-3xl lg:text-4xl font-bold text-[#144D3A] mb-6 text-center">
-          Torne-se um Parceiro do Instituto Congolinaria
-        </h1>
+          Torne-se um Parceiro do Instituto Conglobal        </h1>
 
         <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
           Buscamos alianças com universidades, organizações, empresas e profissionais

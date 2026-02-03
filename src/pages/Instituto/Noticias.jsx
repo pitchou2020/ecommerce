@@ -27,7 +27,7 @@ export default function Noticias() {
           <h1 className="text-3xl font-bold">Notícias e Publicações</h1>
           <p className="text-sm mt-2 max-w-xl text-[#E5E7EB]">
             Acompanhe as novidades, eventos, ações culturais e relatos do
-            Instituto Congolinaria.
+            Instituto Conglobal.
           </p>
         </div>
       </section>
