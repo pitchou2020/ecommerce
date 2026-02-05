@@ -2,27 +2,24 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  adicionarAoCarrinhoRedux,
-  editarQuantidadeRedux,
-  deletarItemRedux,
-} from "../../redux/cartReducer";
+import { adicionarAoCarrinhoRedux, selectCarrinhoPorCanal } from "../../redux/cartReducer";
 
 export default function Hortifruti() {
   const [produtos, setProdutos] = useState([]);
   const [quantidades, setQuantidades] = useState({});
-  const [mostrarModal, setMostrarModal] = useState(false);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("todos");
   const [busca, setBusca] = useState("");
   const [ordenarPor, setOrdenarPor] = useState("nome");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const carrinho = useSelector((state) => state.cart.cartItems || []);
+
+  // ✅ carrinho do canal hortifruti
+  const carrinho = useSelector((state) => selectCarrinhoPorCanal(state, "hortifruti"));
 
   // ✅ Lê categoria pela URL: /hortifruti?cat=3
   const [searchParams, setSearchParams] = useSearchParams();
-  const catParam = searchParams.get("cat"); // string ou null
+  const catParam = searchParams.get("cat");
   const categoriaUrlId = catParam ? Number(catParam) : null;
 
   /* =========================
@@ -75,28 +72,31 @@ export default function Hortifruti() {
         (escolhidoBase === antigo ? novo.popular : antigo.popular) === "1"
           ? "1"
           : escolhidoBase.popular || "",
-      ativo: Number(escolhidoBase.ativo ?? 1), // ✅ garante ativo
+      ativo: Number(escolhidoBase.ativo ?? 1),
     };
   };
 
   // ✅ Ajusta URL de imagem caso venha relativa (img_upload/...)
   const imgUrl = (path) => {
     if (!path) return "";
-    if (String(path).startsWith("http")) return path;
-    return `https://congolinaria.com.br/${String(path).replace(/^\/+/, "")}`;
+    const s = String(path).trim();
+    if (s.startsWith("http://") || s.startsWith("https://")) return s;
+    return `https://congolinaria.com.br/${s.replace(/^\/+/, "")}`;
   };
 
   /* =========================
-     CARREGAMENTO + NORMALIZAÇÃO + DEDUP
-     (✅ SOMENTE ATIVOS)
+     CARREGAMENTO (✅ SOMENTE ATIVOS)
      ========================= */
   useEffect(() => {
     axios
-      .get("https://congolinaria.com.br/api/hortifruti.php?somente_ativos=1") // ✅ só ativos direto do backend
+      .get("https://congolinaria.com.br/api/hortifruti.php?somente_ativos=1")
       .then((res) => {
         const normalizados = Array.isArray(res.data)
           ? res.data.map((p) => ({
               ...p,
+              // ✅ ID: tenta os dois padrões
+              id_produto: p?.id_produto ?? p?.id ?? null,
+
               nome: p?.nome ?? "",
               descricao: p?.descricao ?? "",
               preco: Number(p?.preco) || 0,
@@ -107,11 +107,12 @@ export default function Hortifruti() {
                   : null,
               imagem: p?.imagem ?? "",
               categoria_id: p?.categoria_id ?? p?.categoriaId ?? p?.categoria ?? null,
-              ativo: Number(p?.ativo ?? 1), // ✅ NOVO
+              ativo: Number(p?.ativo ?? 1),
+              destaque: p?.destaque ?? "",
+              popular: p?.popular ?? "",
             }))
           : [];
 
-        // ✅ GARANTIA EXTRA: filtra ativos (mesmo se alguém remover a querystring)
         const apenasAtivos = normalizados.filter((p) => Number(p.ativo) === 1);
 
         const mapa = new Map();
@@ -131,46 +132,33 @@ export default function Hortifruti() {
   /* =========================
      CONTROLE DE QUANTIDADE
      ========================= */
-  const alterarQuantidade = (id, valor) => {
+  const alterarQuantidade = (id_produto, valor) => {
     const quantidade = Math.max(1, Number(valor) || 1);
-    setQuantidades((prev) => ({ ...prev, [id]: quantidade }));
+    setQuantidades((prev) => ({ ...prev, [id_produto]: quantidade }));
   };
 
   const handleAdicionar = (produto) => {
+    const idProduto = produto.id_produto ?? produto.id;
+    if (!idProduto) return;
+
     const precoFinal =
       produto.preco_promocional !== null && produto.preco_promocional < produto.preco
-        ? produto.preco_promocional
-        : produto.preco;
+        ? Number(produto.preco_promocional)
+        : Number(produto.preco);
 
     dispatch(
-      adicionarAoCarrinhoRedux({
-        id_produto: produto.id,
-        nome: produto.nome,
-        preco: precoFinal,
-        imagem: produto.imagem,
-        quantity: quantidades[produto.id] || 1,
-      })
+      adicionarAoCarrinhoRedux(
+        {
+          id_produto: Number(idProduto),
+          nome: produto.nome,
+          preco: Number(precoFinal) || 0,
+          imagem: produto.imagem,
+          quantity: quantidades[idProduto] || 1,
+        },
+        "hortifruti"
+      )
     );
   };
-
-  const handleAlterarQuantidade = (id_produto, value) => {
-    dispatch(
-      editarQuantidadeRedux({
-        id_produto,
-        value: Math.max(1, Number(value) || 1),
-      })
-    );
-  };
-
-  const handleRemover = (id_produto) => {
-    dispatch(deletarItemRedux(id_produto));
-  };
-
-  const calcularTotal = () =>
-    carrinho.reduce(
-      (acc, item) => acc + (Number(item.preco) || 0) * item.quantity,
-      0
-    );
 
   /* =========================
      FILTROS + ORDENAÇÃO
@@ -178,17 +166,14 @@ export default function Hortifruti() {
   const produtosFiltrados = useMemo(() => {
     let filtrados = [...produtos];
 
-    // ✅ 0) garantia extra aqui também (não custa nada)
     filtrados = filtrados.filter((p) => Number(p.ativo ?? 1) === 1);
 
-    // ✅ 1) FILTRO PRINCIPAL: categoria vinda da URL (?cat=ID)
     if (categoriaUrlId && !Number.isNaN(categoriaUrlId)) {
       filtrados = filtrados.filter(
         (p) => Number(p.categoria_id) === Number(categoriaUrlId)
       );
     }
 
-    // ✅ 2) Busca
     if (busca.trim()) {
       const termo = busca.toLowerCase();
       filtrados = filtrados.filter(
@@ -198,7 +183,6 @@ export default function Hortifruti() {
       );
     }
 
-    // ✅ 3) Filtros extras
     if (categoriaSelecionada === "promo") {
       filtrados = filtrados.filter(
         (p) => p.preco_promocional !== null && p.preco_promocional < p.preco
@@ -206,22 +190,17 @@ export default function Hortifruti() {
     }
 
     if (categoriaSelecionada === "populares") {
-      filtrados = filtrados.filter(
-        (p) => p.destaque === "sim" || p.popular === "1"
-      );
+      filtrados = filtrados.filter((p) => p.destaque === "sim" || p.popular === "1");
     }
 
     if (categoriaSelecionada === "novos") {
       filtrados = filtrados.slice(-6);
     }
 
-    // ✅ 4) Ordenação
     if (ordenarPor === "precoAsc") filtrados.sort((a, b) => a.preco - b.preco);
     if (ordenarPor === "precoDesc") filtrados.sort((a, b) => b.preco - a.preco);
     if (ordenarPor === "nome")
-      filtrados.sort((a, b) =>
-        (a.nome || "").localeCompare(b.nome || "", "pt-BR")
-      );
+      filtrados.sort((a, b) => (a.nome || "").localeCompare(b.nome || "", "pt-BR"));
 
     return filtrados;
   }, [produtos, busca, categoriaSelecionada, ordenarPor, categoriaUrlId]);
@@ -239,20 +218,30 @@ export default function Hortifruti() {
     return { texto: "Plant-Based", cor: "bg-green-100 text-green-700" };
   };
 
-  /* =========================
-     RENDER
-     ========================= */
+  const totalCarrinho = carrinho.reduce(
+    (acc, item) => acc + (Number(item.preco) || 0) * (Number(item.quantity) || 1),
+    0
+  );
+
   return (
     <div className="p-4 max-w-7xl mx-auto pb-24">
-      <h1 className="text-3xl font-bold mb-6 text-center text-green-800">
-        🌿 Cardápio Congelados – Congolinaria
-      </h1>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <h1 className="text-3xl font-bold text-green-800">🥬 Hortifruti – Congolinaria</h1>
+
+        <button
+          onClick={() => navigate("/sacola-hortifruti")}
+          className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800"
+          title="Ir para a sacola"
+        >
+          🛍️ Sacola ({carrinho.length}) • R$ {totalCarrinho.toFixed(2)}
+        </button>
+      </div>
 
       {/* BUSCA + ORDENAÇÃO */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <input
           type="text"
-          placeholder="🔍 Buscar prato ou ingrediente..."
+          placeholder="🔍 Buscar item..."
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           className="w-full border rounded-lg p-2"
@@ -268,10 +257,10 @@ export default function Hortifruti() {
         </select>
       </div>
 
-      {/* ABAS (extras, não são categorias do banco) */}
+      {/* ABAS */}
       <div className="flex justify-center gap-3 mb-8 flex-wrap">
         {[
-          { id: "todos", label: "🍲 Todos" },
+          { id: "todos", label: "🧺 Todos" },
           { id: "populares", label: "🔥 Mais Pedidos" },
           { id: "promo", label: "💸 Promoções" },
           { id: "novos", label: "🆕 Novos" },
@@ -280,16 +269,13 @@ export default function Hortifruti() {
             key={tab.id}
             onClick={() => setCategoriaSelecionada(tab.id)}
             className={`px-4 py-2 rounded-full ${
-              categoriaSelecionada === tab.id
-                ? "bg-green-700 text-white"
-                : "bg-white border"
+              categoriaSelecionada === tab.id ? "bg-green-700 text-white" : "bg-white border"
             }`}
           >
             {tab.label}
           </button>
         ))}
 
-        {/* ✅ botão rápido pra limpar categoria da URL */}
         {categoriaUrlId && (
           <button
             onClick={() => setSearchParams({})}
@@ -306,21 +292,22 @@ export default function Hortifruti() {
         {produtosFiltrados.map((produto) => {
           const badge = getBadge(produto);
           const precoFinal =
-            produto.preco_promocional !== null &&
-            produto.preco_promocional < produto.preco
+            produto.preco_promocional !== null && produto.preco_promocional < produto.preco
               ? produto.preco_promocional
               : produto.preco;
 
+          const idProduto = produto.id_produto ?? produto.id;
+
           return (
             <div
-              key={produto.id}
+              key={idProduto}
               className="bg-white rounded-xl border shadow-sm p-3 flex flex-col"
             >
               <img
                 src={imgUrl(produto.imagem)}
                 alt={produto.nome}
                 className="h-36 w-full object-cover rounded-lg mb-2 cursor-pointer"
-                onClick={() => navigate(`/hortifruti/produto/${produto.id}`)}
+                onClick={() => navigate(`/hortifruti/produto/${idProduto}`)}
               />
 
               <span
@@ -329,24 +316,20 @@ export default function Hortifruti() {
                 {badge.texto}
               </span>
 
-              <h2 className="font-semibold text-sm leading-snug">
-                {produto.nome}
-              </h2>
+              <h2 className="font-semibold text-sm leading-snug">{produto.nome}</h2>
 
-              <p className="text-xs text-gray-500 flex-1 line-clamp-2">
-                {produto.descricao}
-              </p>
+              <p className="text-xs text-gray-500 flex-1 line-clamp-2">{produto.descricao}</p>
 
               <p className="text-green-700 font-bold text-base mt-2">
-                R$ {precoFinal.toFixed(2)}
+                R$ {Number(precoFinal || 0).toFixed(2)}
               </p>
 
               <div className="flex gap-2 mt-2">
                 <input
                   type="number"
                   min="1"
-                  value={quantidades[produto.id] || 1}
-                  onChange={(e) => alterarQuantidade(produto.id, e.target.value)}
+                  value={quantidades[idProduto] || 1}
+                  onChange={(e) => alterarQuantidade(idProduto, e.target.value)}
                   className="w-14 border rounded p-1 text-center text-sm"
                 />
                 <button
